@@ -6,6 +6,6 @@
       console.log("Não foi possível carregar os dados!");
     });
 
-		scope.processos = [];
+		$scope.processos = [];
 
   });
