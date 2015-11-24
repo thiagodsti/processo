@@ -2,7 +2,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var ProcessoSchema   = new Schema({
-    processo: String,
+  processo: String,
 	fiscal: String
 });
 

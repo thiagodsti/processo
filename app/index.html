@@ -15,6 +15,25 @@
 <body ng-controller="processoController">
   <h1>Processos</h1>
 
+  <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
+  <table class="table" ng-show="processos.length > 0">
+    <tr>
+      <th></th>
+      <th><a href="" ng-click="ordenarPor('processo')">Processo</th>
+      <th>Fiscal</th>
+    </tr>
+    <tr ng-repeat="processo in processos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+      <td><input type="checkbox" ng-model="processo.selecionado"></td>
+      <td>{{processo.processo}}</td>
+      <td>{{processo.fiscal}}</td>
+      <!--
+      <td ng-repeat="(key,value) in contato">
+        {{value}}
+      </td>
+      -->
+    </tr>
+  </table>
+
 
 </body>
 </html>
