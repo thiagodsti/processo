@@ -18,12 +18,10 @@
   <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
   <table class="table" ng-show="processos.length > 0">
     <tr>
-      <th></th>
       <th><a href="" ng-click="ordenarPor('processo')">Processo</th>
       <th>Fiscal</th>
     </tr>
     <tr ng-repeat="processo in processos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-      <td><input type="checkbox" ng-model="processo.selecionado"></td>
       <td>{{processo.processo}}</td>
       <td>{{processo.fiscal}}</td>
       <!--
@@ -34,6 +32,17 @@
     </tr>
   </table>
 
+  <hr />
+
+  <form name="processoForm">
+    <input class="formControl" type="text" ng-model="processo.processo"
+      name="processo" placeholder="Processo" ng-required="true" ng-minlength="3" />
+    <input class="formControl" type="text" ng-model="processo.fiscal"
+      name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
+  </form>
+
+  <button class="btn btn-primary btn-block" ng-click="adicionarProcesso(processo)" >Salvar Processo</button>
+  <button class="btn btn-primary btn-block" ng-click="removerProcesso(processo)" ng-if="isProcessoSelecionado(processo)">Apagar Processo</button>
 
 </body>
 </html>
