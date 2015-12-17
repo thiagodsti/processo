@@ -5,8 +5,12 @@ var router = express.Router();              // get an instance of the express Ro
 //create a new instance of processos (accessed at POST http://localhost:8080/api/processos).
 router.post('', function(req, res) {
   var processo = new Processo();      // create a new instance of the Processo model
-  processo.processo = req.body.processo;  // set the processos name (comes from the request)
-	processo.fiscal = req.body.fiscal;
+  //processo.processo = req.body.processo;  // set the processos name (comes from the request)
+//	processo.fiscal = req.body.fiscal;
+
+  for (var attr in req.body) {
+    processo[attr] = req.body[attr];
+  }
   // save the processo and check for errors
   processo.save(function(err) {
     if (err) {
@@ -44,8 +48,9 @@ router.put('/:processo_id', function(req, res) {
     if (err) {
       res.send(err);
     }
-    processo.processo = req.body.processo;
-    processo.fiscal = req.body.fiscal;
+    for (var attr in req.body) {
+      processo[attr] = req.body[attr];
+    }
 
     // save the processo
     processo.save(function(err) {
