@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-angular.module('processo', ['ui.grid', 'ui.grid.selection']).directive('grid', function(){
+angular.module('processo', ['ui.grid', 'ui.grid.selection', 'ui.grid.moveColumns', 'ui.grid.pagination', 'ui.grid.resizeColumns']).directive('grid', function(){
     return{
         templateUrl: "js/directives/grid/grid.html",
         restrict: 'E',
