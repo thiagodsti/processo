@@ -1,50 +1,59 @@
 <html ng-app="processo">
-<head>
-  <meta charset="UTF-8">
-  <title>Processos</title>
-  <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="css/app.css">
-  <link rel="stylesheet" type="text/css" href="css/ui.css">
-  <link rel="styleSheet" href="components/angular-ui-grid/ui-grid.min.css"/>
-  <script src="components/angular/angular.js"></script>
-  <script src="components/angular-messages/angular-messages.js"></script>
-  <script src="components/angular-ui-grid/ui-grid.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/controllers/processoController.js"></script>
-  <script src="js/services/processoService.js"></script>
-  <script src="js/configs/configValue.js"></script>
-</head>
-<body ng-controller="processoController">
-  <h1>Processos</h1>
-
-  <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
-  <table class="table" ng-show="processos.length > 0">
-    <tr>
-      <th><a href="" ng-click="ordenarPor('processo')">Processo</th>
-      <th>Fiscal</th>
-    </tr>
-    <tr ng-repeat="processo in processos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-      <td>{{processo.processo}}</td>
-      <td>{{processo.fiscal}}</td>
-      <!--
-      <td ng-repeat="(key,value) in contato">
-        {{value}}
-      </td>
-      -->
-    </tr>
-  </table>
-
-  <hr />
-
-  <form name="processoForm">
-    <input class="formControl" type="text" ng-model="processo.processo"
-      name="processo" placeholder="Processo" ng-required="true" ng-minlength="3" />
-    <input class="formControl" type="text" ng-model="processo.fiscal"
-      name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
-  </form>
-
-  <button class="btn btn-primary btn-block" ng-click="adicionarProcesso(processo)">Salvar Processo</button>
-  <button class="btn btn-primary btn-block" ng-click="removerProcesso(processo)" ng-if="isProcessoSelecionado(processo)">Apagar Processo</button>
-
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Processos</title>
+        <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/app.css">
+        <link rel="stylesheet" type="text/css" href="css/ui.css">
+        <link rel="stylesheet" type="text/css" href="css/grid.css">
+        <link rel="styleSheet" href="components/angular-ui-grid/ui-grid.min.css"/>
+        <script src="components/angular/angular.js"></script>
+        <script src="components/angular-messages/angular-messages.js"></script>
+        <script src="components/angular-ui-grid/ui-grid.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/directives/grid/grid.directive.js"></script>
+        <script src="js/controllers/processoController.js"></script>
+        <script src="js/services/processoService.js"></script>
+        <script src="js/configs/configValue.js"></script>
+    </head>
+    <body ng-controller="processoController">
+        <div>
+            <h1>Processos</h1>
+            
+            <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
+            <table class="table" ng-show="processos.length > 0">
+                <tr>
+                    <th><a href="" ng-click="ordenarPor('processo')">Processo</th>
+                    <th>Fiscal</th>
+                </tr>
+                <tr ng-repeat="processo in processos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+                    <td>{{processo.processo}}</td>
+                    <td>{{processo.fiscal}}</td>
+                    <!--
+                    <td ng-repeat="(key,value) in contato">
+                      {{value}}
+                    </td>
+                    -->
+                </tr>
+            </table>
+            
+            <hr />
+            
+            <form name="processoForm">
+                <input class="formControl" type="text" ng-model="processo.processo"
+                       name="processo" placeholder="Processo" ng-required="true" ng-minlength="3" />
+                <input class="formControl" type="text" ng-model="processo.fiscal"
+                       name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
+            </form>
+            <div style="width: 70%; height: 300px">
+                <grid grid-options="gridOptions" data="myData"></grid>
+            </div>
+            
+            <div style="width: 150px; padding-top: 10px;">
+                <button class="btn btn-primary btn-block" ng-click="adicionarProcesso(processo)">Salvar Processo</button>
+                <button class="btn btn-primary btn-block" ng-click="removerProcesso(processo)" ng-if="isProcessoSelecionado(processo)">Apagar Processo</button>
+            </div>
+        </div>
+        
+    </body>
 </html>
