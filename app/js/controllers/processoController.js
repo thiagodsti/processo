@@ -30,16 +30,23 @@ angular.module("processo").controller("processoController", function($scope, $fi
         {name: "Tiancum", age: 43},
         {name: "Jacob", age: 27},
         {name: "Nephi", age: 29},
-        {name: "Enos", age: 34},
-        {name: "Enos", age: 34},
-        {name: "Enos", age: 34},
-        {name: "Enos", age: 34},
-        {name: "Enos", age: 34},
-        {name: "Enos", age: 34}];
+        {name: "d", age: 213},
+        {name: "asdf", age: 3},
+        {name: "adf", age: 123},
+        {name: "asdf", age: 4},
+        {name: "adf", age: 34},
+        {name: "jhg", age: 6}];
     $scope.gridOptions = {
-        exporterMenuCsv: false,
-        enableGridMenu: true
-    };
+        enableRowSelection: true,
+//        enableSelectAll: true,
+        multiSelect: true,
+        enableRowSelection: true,
+        noUnselect: true,
+        enableFullRowSelection: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 35,
+        showGridFooter:true
+    }
 
 
 
