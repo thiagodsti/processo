@@ -6,8 +6,7 @@
 
 angular.module('processo', ['ui.grid']).directive('grid', function(){
     return{
-//        templateUrl: "app/js/directives/grid/grid.html",
-        template: "<div ui-grid=\"gridOptions\"></div>",
+        templateUrl: "js/directives/grid/grid.html",
         restrict: 'E',
         scope:{
             gridOptions:'=',
