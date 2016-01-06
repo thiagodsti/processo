@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -13,10 +13,10 @@ angular.module('processo', ['ui.grid', 'ui.grid.selection', 'ui.grid.moveColumns
             data: '='
         },
         link: link
-    }
+    };
 });
 function link(scope, element){
-    scope.gridOptions.data = scope.data;      
+    scope.gridOptions.data = scope.data;
     angular.extend(scope.gridOptions, {
         onRegisterApi: function (gridApi) {
             //set gridApi on scope
@@ -25,11 +25,17 @@ function link(scope, element){
                 var msg = 'row selected ' + row.isSelected;
                 console.log(msg);
             });
- 
+
             gridApi.selection.on.rowSelectionChangedBatch(scope, function(rows){
                 var msg = 'rows changed ' + rows.length;
                 console.log(msg);
             });
         }
     });
+
+    scope.$watch('data', function() {
+      scope.gridOptions.data = scope.data;
+    });
+
+
 }

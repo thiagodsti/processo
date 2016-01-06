@@ -22,11 +22,11 @@
     <body ng-controller="processoController">
         <div style="height:100%">
         <h1 class="title">Processos</h1>
-            
+
             <input class="form-control search" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
             <table class="table" ng-show="processos.length > 0">
                 <tr>
-                    <th><a href="" ng-click="ordenarPor('processo')">Processo</th>
+                    <th>Processo</th>
                     <th>Fiscal</th>
                 </tr>
                 <tr ng-repeat="processo in processos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
@@ -39,14 +39,14 @@
                     -->
                 </tr>
             </table>
-            
+
             <hr />
             <div class="main_panel_div">
                 <div class="main_form panel panel-primary">
                     <div class="panel-heading">Cadastro de Processos <img ng-click="toggleImg(toggleImgOpen)" id="toggle-form" data-toggle="collapse" data-target="#panel_collapse" src="{{toggleImgSrc}}"></div>
                     <div class="collapse in" id="panel_collapse">
                         <div class="panel-body" >
-                            <div class="process_form">          
+                            <div class="process_form">
                                 <form name="processoForm">
                                     <table style="width:100%">
                                         <tr>
@@ -58,6 +58,7 @@
                                             <td> <input class="formControl input_size" type="text" ng-model="processo.fiscal"
                                                         name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
                                             </td>
+
                                         </tr>
                                         <tr>
                                             <td><label>Select 1:</label></td>
@@ -69,8 +70,8 @@
                                 </form>
                             </div>
                             <div class="grid_div">
-                                <grid grid-options="gridOptions" data="myData"></grid>
-                            </div> 
+                                <grid grid-options="gridOptions" data="processos"></grid>
+                            </div>
                         </div>
                         <div class="process_buttons">
                             <button class="btn btn-primary btn-block" ng-click="adicionarProcesso(processo)"><img style="width: 20px; float: left" src="icons/save.png">Salvar Processo</button>
