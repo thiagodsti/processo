@@ -72,6 +72,8 @@ td {
     padding-top: 15px;
 }
 
-button#toggle-form{
-    float:right
+img#toggle-form{
+    float:right;
+    cursor:pointer;
+    width:25px;
 }

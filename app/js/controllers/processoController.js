@@ -2,6 +2,9 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.processos = [];
     $scope.processo = {};
+    
+    $scope.toggleImgSrc = 'icons/arrow_up.png';
+    $scope.toggleImgOpen = true;
 
     processoService.getProcesso().success(function (data, status) {
         console.log(data);
@@ -15,6 +18,16 @@ angular.module("processo").controller("processoController", function($scope, $fi
             console.log('salvo mesmo com sucesso');
         });
     };
+    
+    $scope.toggleImg = function (isImgOpen){
+        if(isImgOpen){
+            $scope.toggleImgSrc = 'icons/arrow_down.png';
+            $scope.toggleImgOpen = false;
+        }else{
+            $scope.toggleImgSrc = 'icons/arrow_up.png';
+            $scope.toggleImgOpen = true;
+        }
+    }
 
     $scope.removerProcesso = function (processo) {
         console.log(processo);
