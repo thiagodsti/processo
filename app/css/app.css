@@ -1,19 +1,65 @@
-		.jumbotron {
-			width: 700px;
-			text-align: center;
-			margin-top: 20px;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		.table{
-			margin-top: 20px;
-		}
-		.form-control{
-			margin-top: 20px;
-		}
-		.selecionado {
-			background-color: yellow;
-		}
-		.negrito {
-			font-weight: bold;
-		}
+.jumbotron {
+    width: 700px;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.table{
+    margin-top: 20px;
+}
+.form-control{
+    margin-top: 20px;
+}
+.selecionado {
+    background-color: yellow;
+}
+.negrito {
+    font-weight: bold;
+}
+
+.title{
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.search{
+    width: 300px;
+    margin-left: 20px;
+}
+
+.main_form{
+    width: 100%;
+}
+
+.process_form{
+    width: 50%;
+    float: left;
+    padding-left: 20px;
+}
+
+.process_buttons{
+    width: 150px;
+    padding-top: 10px;
+}
+
+.grid_div{
+    width: 50%;
+    height: 300px;
+    float: right;
+    padding-right: 20px;
+}
+
+.main_panel_div{
+    width:95%;
+    margin:auto
+}
+
+.panel-heading{
+    font-size: 20px
+}
+
+.panel-body{
+    padding-top: 30px;
+}
