@@ -45,10 +45,18 @@
                     <div class="panel-body">
                         <div class="process_form">          
                             <form name="processoForm">
-                                <input class="formControl" type="text" ng-model="processo.processo"
-                                       name="processo" placeholder="Processo" ng-required="true" ng-minlength="3" />
-                                <input class="formControl" type="text" ng-model="processo.fiscal"
-                                       name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
+                                <table style="width:100%">
+                                    <tr>
+                                        <td><label>Processo:</label></td>
+                                        <td class="input_form"><input class="formControl" type="text" ng-model="processo.processo"
+                                                                      name="processo" placeholder="Processo" ng-required="true" ng-minlength="3" />
+                                        </td>
+                                        <td><label>Fiscal:</label></td>
+                                        <td> <input class="formControl" type="text" ng-model="processo.fiscal"
+                                                    name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </form>
                             <div class="process_buttons">
                                 <button class="btn btn-primary btn-block" ng-click="adicionarProcesso(processo)">Salvar Processo</button>
