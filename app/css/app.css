@@ -63,3 +63,15 @@
 .panel-body{
     padding-top: 30px;
 }
+
+.input_size{
+    width: 200px
+}
+
+td {
+    padding-top: 15px;
+}
+
+button#toggle-form{
+    float:right
+}

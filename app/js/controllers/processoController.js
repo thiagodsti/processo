@@ -38,10 +38,10 @@ angular.module("processo").controller("processoController", function($scope, $fi
         {name: "jhg", age: 6}];
     $scope.gridOptions = {
         enableRowSelection: true,
-//        enableSelectAll: true,
+        //        enableSelectAll: true,
         multiSelect: true,
         enableRowSelection: true,
-//        noUnselect: true,
+        //        noUnselect: true,
         paginationPageSize: 5,
         paginationPageSizes: [5, 10, 50],
         enableFullRowSelection: true,
@@ -49,6 +49,20 @@ angular.module("processo").controller("processoController", function($scope, $fi
         rowHeight: 35,
         showGridFooter:true
     }
+    
+    $scope.lista1 = [{label: 'item 1',nome:'lucas', telefone:'123'},
+        {label: 'item 2', nome:'lucas', telefone:'123'},
+        {label: 'item 3', nome:'lucas', telefone:'123'}];
+    
+    $scope.lista2 = [{
+            id: 1,
+            label: 'aLabel',
+            subItem: { name: 'aSubItem' }
+        }, {
+            id: 2,
+            label: 'bLabel',
+            subItem: { name: 'bSubItem' }
+        }];
 
 
 

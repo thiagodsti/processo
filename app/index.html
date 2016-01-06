@@ -7,6 +7,8 @@
         <link rel="stylesheet" type="text/css" href="css/ui.css">
         <link rel="stylesheet" type="text/css" href="css/grid.css">
         <link rel="styleSheet" href="components/angular-ui-grid/ui-grid.min.css"/>
+        <script src="components/jquery/dist/jquery.min.js"></script>
+        <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="components/angular/angular.js"></script>
         <script src="components/angular-messages/angular-messages.js"></script>
         <script src="components/angular-ui-grid/ui-grid.js"></script>
@@ -41,20 +43,26 @@
             <hr />
             <div class="main_panel_div">
                 <div class="main_form panel panel-primary">
-                    <div class="panel-heading">Cadastro de Processos</div>
-                    <div class="panel-body">
+                    <div class="panel-heading">Cadastro de Processos <button id="toggle-form" data-toggle="collapse" data-target="#panel_collapse"></button></div>
+                    <div class="panel-body collapse in" id="panel_collapse">
                         <div class="process_form">          
                             <form name="processoForm">
                                 <table style="width:100%">
                                     <tr>
                                         <td><label>Processo:</label></td>
-                                        <td class="input_form"><input class="formControl" type="text" ng-model="processo.processo"
+                                        <td><input class="formControl input_size" type="text" ng-model="processo.processo"
                                                                       name="processo" placeholder="Processo" ng-required="true" ng-minlength="3" />
                                         </td>
                                         <td><label>Fiscal:</label></td>
-                                        <td> <input class="formControl" type="text" ng-model="processo.fiscal"
+                                        <td> <input class="formControl input_size" type="text" ng-model="processo.fiscal"
                                                     name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Select 1:</label></td>
+                                        <td><select class="input_size" ng-options="item as item.label for item in lista1" ng-model="model1"></select></td>
+                                        <td><label>Select 2:</label></td>
+                                        <td><select class="input_size" ng-options="item as item.label for item in lista2" ng-model="model2"></select></td>
                                     </tr>
                                 </table>
                             </form>
