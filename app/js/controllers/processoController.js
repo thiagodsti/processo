@@ -38,6 +38,23 @@ angular.module("processo").controller("processoController", function($scope, $fi
         }
     };
     
+    $scope.isOcorrenciaSelected = function (){
+        if($scope.ocorrencia && angular.equals({}, $scope.ocorrencia)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    $scope.selectProcesso = function(processo){
+        $scope.processo = processo;
+        $scope.ocorrencia = {};
+    }
+    
+    $scope.selectOcorrencia = function(ocorrencia){
+        $scope.ocorrencia = ocorrencia;
+    }
+    
     $scope.adicionarOcorrencia = function(){
         if(!$scope.processo.ocorrencia){
             $scope.processo.ocorrencia = [];

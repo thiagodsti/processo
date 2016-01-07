@@ -11,7 +11,7 @@ angular.module('processo', ['ui.grid', 'ui.grid.selection', 'ui.grid.moveColumns
         scope:{
             gridOptions:'=',
             data: '=',
-            model: '@'
+            selectCallback: '='
         },
         link: link
     };
@@ -28,9 +28,9 @@ function link(scope, element){
             scope.gridApi = gridApi;
             gridApi.selection.on.rowSelectionChanged(scope, function(row){
                 if(row.isSelected){
-                    scope.$parent[scope.model] = row.entity;
+                    scope.selectCallback(row.entity);
                 }else{
-                    scope.$parent[scope.model] = {};
+                    scope.selectCallback({});
                 }
                 
             });

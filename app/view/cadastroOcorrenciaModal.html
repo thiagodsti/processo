@@ -1,5 +1,7 @@
-<button type="button" class="btn btn-primary add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal">Adicionar Ocorrência</button>
-    
+<button type="button" class="btn btn-primary add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal"ng-disabled="isOcorrenciaSelected()">Adicionar Ocorrência</button>
+<button type="button" class="btn btn-success add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal"ng-disabled="!isOcorrenciaSelected()">Editar Ocorrência</button>
+<button type="button" class="btn btn-danger add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal"ng-disabled="!isOcorrenciaSelected()">Deletar Ocorrência</button>
+  
 <div id="ocorrendiaModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -17,8 +19,8 @@
                     <input ng-model="ocorrencia.titulo"/>
                 </div>
                 <div>
-                    <label>Algo: </label>
-                    <input ng-model="ocorrencia.algo"/>
+                    <label>Descrição: </label>
+                    <input ng-model="ocorrencia.descricao"/>
                 </div>
             </div>
             <div class="modal-footer">

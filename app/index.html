@@ -32,7 +32,7 @@
                     <div class="collapse in" id="panel-lista">
                         <div class="panel-body">
                             <div class="grid_lista">
-                                <grid grid-options="gridOptionsProcessos" data="processos" model="processo"></grid>
+                                <grid grid-options="gridOptionsProcessos" data="processos" select-callback="selectProcesso"></grid>
                             </div>
                         </div>
                     </div>
@@ -64,12 +64,24 @@
                                         <label>Select 2:</label>
                                         <select class="input_size" ng-options="item as item.label for item in lista2" ng-model="model2"></select>
                                     </div>
+                                    <div class="input-form">
+                                        <label>Regularidade:</label>
+                                        <input type="checkbox" ng-model="processo.regularidade"/>
+                                    </div>
+                                    <div class="input-form">
+                                        <label>Autuado:</label>
+                                        <input class="formControl input_size" type="text" ng-model="processo.autudado"/>
+                                    </div>
+                                    <div class="input-form">
+                                        <label>Data Visita:</label>
+                                        <input class="formControl input_size" type="text" ng-model="processo.dtvisita"/>
+                                    </div>
                                     <div class="ocorrencia-div">
                                         <label>Ocorrências:</label>
                                         <div style="display: inline !important;" ng-include="'view/cadastroOcorrenciaModal.html'"></div>
                                         <!--<button class="btn btn-primary add_acorrencia">Adicionar Ocorrência</button>-->
                                         <div class="grid_div">
-                                            <grid grid-options="gridOptionsOcorrencias" data="processo.ocorrencia" model="ocorrencia"></grid>
+                                            <grid grid-options="gridOptionsOcorrencias" data="processo.ocorrencia" select-callback="selectOcorrencia"></grid>
                                         </div>
                                     </div>
                                 </form>
