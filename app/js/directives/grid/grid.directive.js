@@ -10,31 +10,39 @@ angular.module('processo', ['ui.grid', 'ui.grid.selection', 'ui.grid.moveColumns
         restrict: 'E',
         scope:{
             gridOptions:'=',
-            data: '='
+            data: '=',
+            model: '@'
         },
         link: link
     };
 });
 function link(scope, element){
-    scope.gridOptions.data = scope.data;
+    if(!scope.data){
+        scope.gridOptions.data = [];
+    }else{
+        scope.gridOptions.data = scope.data; 
+    }
     angular.extend(scope.gridOptions, {
         onRegisterApi: function (gridApi) {
             //set gridApi on scope
             scope.gridApi = gridApi;
             gridApi.selection.on.rowSelectionChanged(scope, function(row){
-                var msg = 'row selected ' + row.isSelected;
-                console.log(msg);
-            });
-
-            gridApi.selection.on.rowSelectionChangedBatch(scope, function(rows){
-                var msg = 'rows changed ' + rows.length;
-                console.log(msg);
+                if(row.isSelected){
+                    scope.$parent[scope.model] = row.entity;
+                }else{
+                    scope.$parent[scope.model] = {};
+                }
+                
             });
         }
     });
 
     scope.$watch('data', function() {
-      scope.gridOptions.data = scope.data;
+        if(!scope.data){
+            scope.gridOptions.data = [];
+        }else{
+            scope.gridOptions.data = scope.data; 
+        }
     });
 
 
