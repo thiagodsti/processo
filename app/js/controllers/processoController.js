@@ -39,6 +39,9 @@ angular.module("processo").controller("processoController", function($scope, $fi
     };
     
     $scope.adicionarOcorrencia = function(){
+        if(!$scope.processo.ocorrencia){
+            $scope.processo.ocorrencia = [];
+        }
          $scope.processo.ocorrencia.push($scope.ocorrencia);
          $scope.ocorrencia = {};
     }
