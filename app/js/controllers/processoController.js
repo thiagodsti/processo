@@ -6,9 +6,15 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.titulo = '';
     $scope.descricao = '';
+    $scope.ocorrencia = {};
 
-    $scope.toggleImgSrc = 'icons/arrow_up.png';
-    $scope.toggleImgOpen = true;
+    $scope.toggleImgSrcCadastro = 'icons/arrow_up.png';
+    $scope.toggleImgOpenCadastro = true;
+
+    $scope.toggleImgSrcLista = 'icons/arrow_up.png';
+    $scope.toggleImgOpenLista = true;
+
+    $scope.isProcessSelected = false;
 
     processoService.getProcesso().success(function (data, status) {
         console.log(data);
@@ -23,23 +29,40 @@ angular.module("processo").controller("processoController", function($scope, $fi
         processoService.saveProcesso(processo).then(function() {
             console.log('salvo mesmo com sucesso');
         });
+        $scope.processos.push(processo);
+        $scope.processo = {};
     };
 
-    $scope.toggleImg = function (isImgOpen){
-        if(isImgOpen){
-            $scope.toggleImgSrc = 'icons/arrow_down.png';
-            $scope.toggleImgOpen = false;
+    $scope.toggleImg = function (isImgOpen, item){
+        if($scope[isImgOpen]){
+            $scope[item] = 'icons/arrow_down.png';
+            $scope[isImgOpen] = false;
         }else{
-            $scope.toggleImgSrc = 'icons/arrow_up.png';
-            $scope.toggleImgOpen = true;
+            $scope[item] = 'icons/arrow_up.png';
+            $scope[isImgOpen] = true;
         }
     };
 
-    $scope.adicionarOcorrencia = function () {
-      $scope.ocorrencias.push({titulo: $scope.titulo, descricao: $scope.descricao});
-      $scope.titulo = '';
-      $scope.descricao = '';
+    $scope.isOcorrenciaSelected = function (){
+        if($scope.ocorrencia && angular.equals({}, $scope.ocorrencia)){
+            return false;
+        }else{
+            return true;
+        }
+    };
 
+    $scope.selectProcesso = function(processo){
+        $scope.processo = processo;
+        $scope.ocorrencia = {};
+    };
+
+    $scope.selectOcorrencia = function(ocorrencia){
+        $scope.ocorrencia = ocorrencia;
+    };
+
+    $scope.adicionarOcorrencia = function(){
+         $scope.ocorrencias.push($scope.ocorrencia);
+         $scope.ocorrencia = {};
     };
 
     $scope.removerProcesso = function (processo) {
@@ -52,28 +75,31 @@ angular.module("processo").controller("processoController", function($scope, $fi
         //});
     };
 
-    $scope.myData = [{name: "Moroni", age: 50},
-        {name: "Tiancum", age: 43},
-        {name: "Jacob", age: 27},
-        {name: "Nephi", age: 29},
-        {name: "d", age: 213},
-        {name: "asdf", age: 3},
-        {name: "adf", age: 123},
-        {name: "asdf", age: 4},
-        {name: "adf", age: 34},
-        {name: "jhg", age: 6}];
-    $scope.gridOptions = {
+    $scope.gridOptionsProcessos = {
         enableRowSelection: true,
         //        enableSelectAll: true,
-        multiSelect: true,
+        multiSelect: false,
         //        noUnselect: true,
-        paginationPageSize: 5,
-        paginationPageSizes: [5, 10, 50],
+        paginationPageSize: 12,
+        paginationPageSizes: [12, 24, 36],
         enableFullRowSelection: true,
         selectionRowHeaderWidth: 35,
         rowHeight: 35,
-        showGridFooter:true
+        //        showGridFooter:true
     };
+    $scope.gridOptionsOcorrencias = {
+        enableRowSelection: true,
+        //        enableSelectAll: true,
+        multiSelect: false,
+        //        noUnselect: true,
+        paginationPageSize: 12,
+        paginationPageSizes: [12, 24, 36],
+        enableFullRowSelection: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 35,
+        //        showGridFooter:true
+    };
+
 
     $scope.lista1 = [{label: 'item 1',nome:'lucas', telefone:'123'},
         {label: 'item 2', nome:'lucas', telefone:'123'},

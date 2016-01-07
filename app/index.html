@@ -7,95 +7,94 @@
         <link rel="stylesheet" type="text/css" href="css/ui.css">
         <link rel="stylesheet" type="text/css" href="css/grid.css">
         <link rel="styleSheet" href="components/angular-ui-grid/ui-grid.min.css"/>
+        <!--<link rel="styleSheet" href="components/ng-dialog/css/ngDialog.css"/>-->
         <script src="components/jquery/dist/jquery.min.js"></script>
         <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="components/angular/angular.js"></script>
+        <!--<script src="components/ng-dialog/js/ngDialog.js"></script>-->
         <script src="components/angular-messages/angular-messages.js"></script>
         <script src="components/angular-ui-grid/ui-grid.js"></script>
         <script src="js/app.js"></script>
         <script src="js/directives/grid/grid.directive.js"></script>
         <script src="js/controllers/processoController.js"></script>
+        <!--<script src="js/factories/dialog/dialog.factory.js"></script>-->
         <script src="js/services/processoService.js"></script>
         <script src="js/configs/configValue.js"></script>
         <!--<script data-main="js/app.all" src="components/requirejs/require.js"></script>-->
     </head>
     <body ng-controller="processoController">
-        <div style="height:100%">
-        <h1 class="title">Processos</h1>
-
-            <input class="form-control search" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
-            <table class="table" ng-show="processos.length > 0">
-                <tr>
-                    <th>Processo</th>
-                    <th>Fiscal</th>
-                </tr>
-                <tr ng-repeat="processo in processos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-                    <td>{{processo.processo}}</td>
-                    <td>{{processo.fiscal}}</td>
-                    <!--
-                    <td ng-repeat="(key,value) in contato">
-                      {{value}}
-                    </td>
-                    -->
-                </tr>
-            </table>
-
+        <div>
+            <h1 class="title">Processos</h1>
             <hr />
             <div class="main_panel_div">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Lista de Processos<img ng-click="toggleImg('toggleImgOpenLista', 'toggleImgSrcLista')" id="toggle-form" data-toggle="collapse" data-target="#panel-lista" src="{{toggleImgSrcLista}}"></div>
+                    <div class="collapse in" id="panel-lista">
+                        <div class="panel-body">
+                            <div class="grid_lista">
+                                <grid grid-options="gridOptionsProcessos" data="processos" select-callback="selectProcesso"></grid>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main_panel_div">
                 <div class="main_form panel panel-primary">
-                    <div class="panel-heading">Cadastro de Processos <img ng-click="toggleImg(toggleImgOpen)" id="toggle-form" data-toggle="collapse" data-target="#panel_collapse" src="{{toggleImgSrc}}"></div>
-                    <div class="collapse in" id="panel_collapse">
+                    <div class="panel-heading">Cadastro de Processos <img ng-click="toggleImg('toggleImgOpenCadastro', 'toggleImgSrcCadastro')" id="toggle-form" data-toggle="collapse" data-target="#panel-cadastro" src="{{toggleImgSrcCadastro}}"></div>
+                    <div class="collapse in" id="panel-cadastro">
                         <div class="panel-body" >
                             <div class="process_form" style="width:100%">
                                 <form name="processoForm">
-                                    <table style="width:100%">
-                                        <tr>
-                                            <td><label>Processo:</label></td>
-                                            <td><input class="formControl input_size" type="text" ng-model="processo.processo"
-                                                       name="processo" placeholder="Processo" ng-required="true" ng-minlength="3" />
-                                            </td>
-                                            <td><label>Fiscal:</label></td>
-                                            <td> <input class="formControl input_size" type="text" ng-model="processo.fiscal"
-                                                        name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label>Ocorrencia teste Titulo:</label></td>
-                                            <td> <input class="formControl input_size" type="text" ng-model="titulo"
-                                                        name="titulo" placeholder="Titulo"  ng-minlength="3" />
-                                            </td>
-
-                                            <td><label>Ocorrencia teste Descricao:</label></td>
-                                            <td> <input class="formControl input_size" type="text" ng-model="descricao"
-                                                        name="descricao" placeholder="Descricao" ng-minlength="3" />
-                                            </td>
-
-                                            <td>
-                                              <button class="btn btn-primary btn-block" ng-click="adicionarOcorrencia()">Adicionar Ocorrencia</button>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><label>Select 1:</label></td>
-                                            <td><select class="input_size" ng-options="item as item.label for item in lista1" ng-model="model1"></select></td>
-                                            <td><label>Select 2:</label></td>
-                                            <td><select class="input_size" ng-options="item as item.label for item in lista2" ng-model="model2"></select></td>
-                                        </tr>
-                                    </table>
+                                    <div class="input-form">
+                                        <label>Processo:</label>
+                                        <input class="formControl input_size" type="text" ng-model="processo.processo"
+                                               name="processo" placeholder="Processo" ng-required="true" ng-minlength="3" />
+                                    </div>
+                                    <div class="input-form">
+                                        <label>Fiscal:</label>
+                                        <input class="formControl input_size" type="text" ng-model="processo.fiscal"
+                                               name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
+                                    </div>
+                                    <div class="input-form">
+                                        <label>Select 1:</label>
+                                        <select class="input_size" ng-options="item as item.label for item in lista1" ng-model="model1"></select>
+                                    </div>
+                                    <div class="input-form">
+                                        <label>Select 2:</label>
+                                        <select class="input_size" ng-options="item as item.label for item in lista2" ng-model="model2"></select>
+                                    </div>
+                                    <div class="input-form">
+                                        <label>Regularidade:</label>
+                                        <input type="checkbox" ng-model="processo.regularidade"/>
+                                    </div>
+                                    <div class="input-form">
+                                        <label>Autuado:</label>
+                                        <input class="formControl input_size" type="text" ng-model="processo.autudado"/>
+                                    </div>
+                                    <div class="input-form">
+                                        <label>Data Visita:</label>
+                                        <input class="formControl input_size" type="text" ng-model="processo.dtvisita"/>
+                                    </div>
+                                    <div class="ocorrencia-div">
+                                        <label>Ocorrências:</label>
+                                        <div style="display: inline !important;" ng-include="'view/cadastroOcorrenciaModal.html'"></div>
+                                        <!--<button class="btn btn-primary add_acorrencia">Adicionar Ocorrência</button>-->
+                                        <div class="grid_div">
+                                            <grid grid-options="gridOptionsOcorrencias" data="ocorrencias" select-callback="selectOcorrencia"></grid>
+                                        </div>
+                                    </div>
                                 </form>
-                            </div>
-                            <div class="grid_div">
-                                <grid grid-options="gridOptions" data="processos"></grid>
                             </div>
                         </div>
                         <div class="process_buttons">
                             <button class="btn btn-primary btn-block" ng-click="adicionarProcesso(processo)"><img style="width: 20px; float: left" src="icons/save.png">Salvar Processo</button>
-                            <button class="btn btn-primary btn-block" ng-click="removerProcesso(processo)" ng-if="isProcessoSelecionado(processo)">Apagar Processo</button>
+                            <!--<button class="btn btn-primary btn-block" ng-click="removerProcesso(processo)" ng-if="isProcessoSelecionado(processo)">Apagar Processo</button>-->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div ng-include="'view/footer.html'"></div>
+        <!--<div ng-include="'view/footer.html'"></div>-->
     </body>
 </html>

@@ -22,7 +22,7 @@
     text-align: center;
     margin-bottom: 40px;
     margin-top: 40px;
-    color: ivory;
+    /*color: ivory;*/
     font-weight: bold;
     font-size: 40px !important;
     
@@ -38,7 +38,7 @@
 }
 
 .process_form{
-    width: 50%;
+    width: 100%;
     float: left;
     padding-left: 20px;
 }
@@ -52,10 +52,10 @@
 }
 
 .grid_div{
-    width: 50%;
+    width: 70%;
     height: 300px;
-    float: right;
-    padding-right: 20px;
+    margin: auto;
+    margin-top: 10px;
 }
 
 .main_panel_div{
@@ -72,7 +72,8 @@
 }
 
 .input_size{
-    width: 200px
+    width: 200px;
+    height: 30px;
 }
 
 td {
@@ -87,11 +88,11 @@ img#toggle-form{
 
 body{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0e0e0e+0,4e5c5a+18,829d98+33,8ea6a2+50,99afab+67,aebfbc+78,d8e0de+100&1+0,0.69+100 */
-    background: -moz-linear-gradient(-45deg,  rgba(14,14,14,1) 0%, rgba(78,92,90,0.94) 18%, rgba(130,157,152,0.89) 33%, rgba(142,166,162,0.84) 50%, rgba(153,175,171,0.79) 67%, rgba(174,191,188,0.76) 78%, rgba(216,224,222,0.69) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg,  rgba(14,14,14,1) 0%,rgba(78,92,90,0.94) 18%,rgba(130,157,152,0.89) 33%,rgba(142,166,162,0.84) 50%,rgba(153,175,171,0.79) 67%,rgba(174,191,188,0.76) 78%,rgba(216,224,222,0.69) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg,  rgba(14,14,14,1) 0%,rgba(78,92,90,0.94) 18%,rgba(130,157,152,0.89) 33%,rgba(142,166,162,0.84) 50%,rgba(153,175,171,0.79) 67%,rgba(174,191,188,0.76) 78%,rgba(216,224,222,0.69) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e0e', endColorstr='#b0d8e0de',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-    
+    /*    background: -moz-linear-gradient(-45deg,  rgba(14,14,14,1) 0%, rgba(78,92,90,0.94) 18%, rgba(130,157,152,0.89) 33%, rgba(142,166,162,0.84) 50%, rgba(153,175,171,0.79) 67%, rgba(174,191,188,0.76) 78%, rgba(216,224,222,0.69) 100%);  FF3.6-15 
+        background: -webkit-linear-gradient(-45deg,  rgba(14,14,14,1) 0%,rgba(78,92,90,0.94) 18%,rgba(130,157,152,0.89) 33%,rgba(142,166,162,0.84) 50%,rgba(153,175,171,0.79) 67%,rgba(174,191,188,0.76) 78%,rgba(216,224,222,0.69) 100%);  Chrome10-25,Safari5.1-6 
+        background: linear-gradient(135deg,  rgba(14,14,14,1) 0%,rgba(78,92,90,0.94) 18%,rgba(130,157,152,0.89) 33%,rgba(142,166,162,0.84) 50%,rgba(153,175,171,0.79) 67%,rgba(174,191,188,0.76) 78%,rgba(216,224,222,0.69) 100%);  W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ 
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e0e', endColorstr='#b0d8e0de',GradientType=1 );  IE6-9 fallback on horizontal gradient 
+    */
 }
 
 .footer{
@@ -100,4 +101,42 @@ body{
     height: 4%;
     color: white;
     padding-top: 5px;
+}
+
+.grid_lista{
+    height: 400px;
+}
+
+.process_form .input-form{
+    margin-top: 10px;
+}
+
+.process_form label{
+    font-size: 16px;
+    font-weight: bold;
+    width: 10%
+}
+
+.ocorrencia-div {
+    margin-top: 25px;
+}
+
+.add_acorrencia{
+    width: 150px;
+}
+
+.modal-header{
+    background-color: #337ab7 !important;
+    color: white;
+}
+
+.modal-title{
+    font-size: 20px;
+}
+
+input[type="checkbox"]{
+    -ms-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -o-transform: scale(1.5);
 }
