@@ -46,7 +46,7 @@
                     <div class="panel-heading">Cadastro de Processos <img ng-click="toggleImg(toggleImgOpen)" id="toggle-form" data-toggle="collapse" data-target="#panel_collapse" src="{{toggleImgSrc}}"></div>
                     <div class="collapse in" id="panel_collapse">
                         <div class="panel-body" >
-                            <div class="process_form">
+                            <div class="process_form" style="width:100%">
                                 <form name="processoForm">
                                     <table style="width:100%">
                                         <tr>
@@ -57,6 +57,21 @@
                                             <td><label>Fiscal:</label></td>
                                             <td> <input class="formControl input_size" type="text" ng-model="processo.fiscal"
                                                         name="fiscal" placeholder="Fiscal" ng-required="true" ng-minlength="3" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>Ocorrencia teste Titulo:</label></td>
+                                            <td> <input class="formControl input_size" type="text" ng-model="titulo"
+                                                        name="titulo" placeholder="Titulo"  ng-minlength="3" />
+                                            </td>
+
+                                            <td><label>Ocorrencia teste Descricao:</label></td>
+                                            <td> <input class="formControl input_size" type="text" ng-model="descricao"
+                                                        name="descricao" placeholder="Descricao" ng-minlength="3" />
+                                            </td>
+
+                                            <td>
+                                              <button class="btn btn-primary btn-block" ng-click="adicionarOcorrencia()">Adicionar Ocorrencia</button>
                                             </td>
 
                                         </tr>

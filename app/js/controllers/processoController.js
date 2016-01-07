@@ -2,6 +2,10 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.processos = [];
     $scope.processo = {};
+    $scope.ocorrencias = [];
+
+    $scope.titulo = '';
+    $scope.descricao = '';
 
     $scope.toggleImgSrc = 'icons/arrow_up.png';
     $scope.toggleImgOpen = true;
@@ -15,6 +19,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.adicionarProcesso = function (processo){
         console.log(processo);
+        processo.ocorrencias = $scope.ocorrencias;
         processoService.saveProcesso(processo).then(function() {
             console.log('salvo mesmo com sucesso');
         });
@@ -28,6 +33,13 @@ angular.module("processo").controller("processoController", function($scope, $fi
             $scope.toggleImgSrc = 'icons/arrow_up.png';
             $scope.toggleImgOpen = true;
         }
+    };
+
+    $scope.adicionarOcorrencia = function () {
+      $scope.ocorrencias.push({titulo: $scope.titulo, descricao: $scope.descricao});
+      $scope.titulo = '';
+      $scope.descricao = '';
+
     };
 
     $scope.removerProcesso = function (processo) {
@@ -76,6 +88,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
             label: 'bLabel',
             subItem: { name: 'bSubItem' }
         }];
+
 
 
 

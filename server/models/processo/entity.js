@@ -4,7 +4,7 @@ var Schema       = mongoose.Schema;
 var ProcessoSchema   = new Schema({
   processo: String,
 	fiscal: String,
-  ocorrencia: [{
+  ocorrencias: [{
     titulo: String,
     descricao: String
   }]
