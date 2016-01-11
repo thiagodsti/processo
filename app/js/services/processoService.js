@@ -6,7 +6,7 @@ angular.module("processo").factory("processoService", function($http, $q, config
 		var _saveProcesso = function (processo) {
 			var deferred = $q.defer();
 			$http.post(config.baseUrl + "/processos", processo).success(function() {
-				console.log('sucesso');
+				deferred.resolve(processo);
 			}).error(function (msg, code) {
 				deferred.reject(msg);
 				console.log('erro ' + code);

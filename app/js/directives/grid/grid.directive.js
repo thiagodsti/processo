@@ -20,7 +20,7 @@ function link(scope, element){
     if(!scope.data){
         scope.gridOptions.data = [];
     }else{
-        scope.gridOptions.data = scope.data; 
+        scope.gridOptions.data = scope.data;
     }
     angular.extend(scope.gridOptions, {
         onRegisterApi: function (gridApi) {
@@ -32,7 +32,7 @@ function link(scope, element){
                 }else{
                     scope.selectCallback({});
                 }
-                
+
             });
         }
     });
@@ -41,7 +41,7 @@ function link(scope, element){
         if(!scope.data){
             scope.gridOptions.data = [];
         }else{
-            scope.gridOptions.data = scope.data; 
+            scope.gridOptions.data = scope.data;
         }
     });
 

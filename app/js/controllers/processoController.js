@@ -1,20 +1,35 @@
 angular.module("processo").controller("processoController", function($scope, $filter, processoService){
 
+  //Lucas utilizar o $scope.PageMode para controlar quando pode o campo ser editado ou não.
+
     $scope.processos = [];
-    $scope.processo = {};
     $scope.ocorrencias = [];
+    $scope.irregularidades = [];
 
     $scope.titulo = '';
     $scope.descricao = '';
     $scope.ocorrencia = {};
+    $scope.irregularidade = {};
 
-    $scope.toggleImgSrcCadastro = 'icons/arrow_up.png';
+    $scope.toggleImgSrcCadastro = '/icons/arrow_up.png';
     $scope.toggleImgOpenCadastro = true;
 
-    $scope.toggleImgSrcLista = 'icons/arrow_up.png';
+    $scope.toggleImgSrcLista = '/icons/arrow_up.png';
     $scope.toggleImgOpenLista = true;
 
     $scope.isProcessSelected = false;
+
+    $scope.novoProcesso = function() {
+      $scope.PageMode = 'SAVE';
+      $scope.ocorrencias = [];
+      $scope.irregularidades = [];
+      $scope.titulo = '';
+      $scope.descricao = '';
+      $scope.ocorrencia = {};
+      $scope.irregularidade = {};
+      $scope.isProcessSelected = false;
+      $scope.processo = {situacao: 'ABERTO'};
+    };
 
     processoService.getProcesso().success(function (data, status) {
         console.log(data);
@@ -24,13 +39,20 @@ angular.module("processo").controller("processoController", function($scope, $fi
     });
 
     $scope.adicionarProcesso = function (processo){
+      if($scope.processoForm.$valid){
         console.log(processo);
         processo.ocorrencias = $scope.ocorrencias;
+        if(!processo.regularidade){
+          processo.irregularidades = $scope.irregularidades;
+        }
         processoService.saveProcesso(processo).then(function() {
-            console.log('salvo mesmo com sucesso');
+            $scope.novoProcesso();
         });
         $scope.processos.push(processo);
-        $scope.processo = {};
+
+      } else {
+        console.log('Form inválido');
+      }
     };
 
     $scope.toggleImg = function (isImgOpen, item){
@@ -70,9 +92,15 @@ angular.module("processo").controller("processoController", function($scope, $fi
     };
 
     $scope.isProcessoSelecionado = function (processo) {
+      $scope.PageMode = 'UPDATE';
         //return processos.some(function (processo) {
         //	return processo.selecionado;
         //});
+    };
+
+    $scope.adicionarIrregularidade = function () {
+      $scope.irregularidades.push($scope.irregularidade);
+      $scope.irregularidade = {};
     };
 
     $scope.gridOptionsProcessos = {
@@ -101,19 +129,29 @@ angular.module("processo").controller("processoController", function($scope, $fi
     };
 
 
-    $scope.lista1 = [{label: 'item 1',nome:'lucas', telefone:'123'},
-        {label: 'item 2', nome:'lucas', telefone:'123'},
-        {label: 'item 3', nome:'lucas', telefone:'123'}];
+    $scope.fiscais = [
+      {nome: 'Thiago Diniz da Silveira'},
+      {nome: 'Luis Antônio Nunes'},
+      {nome: 'Lucas Toledo'}
+    ];
 
-    $scope.lista2 = [{
-            id: 1,
-            label: 'aLabel',
-            subItem: { name: 'aSubItem' }
-        }, {
-            id: 2,
-            label: 'bLabel',
-            subItem: { name: 'bSubItem' }
-        }];
+    $scope.tiposDeFiscalizacao = [
+      {label: 'Fiscalização 1'},
+      {label: 'Fiscalização 2'}
+    ];
+
+    $scope.municipios = [
+      {municipio: 'Florianópolis', estado: 'SC'},
+      {municipio: 'São José', estado: 'SC'},
+      {municipio: 'Palhoça', estado: 'SC'}
+    ];
+
+    $scope.irregularidadesTitulo = [
+      {titulo: 'Irregularidade 1'},
+      {titulo: 'Irregularidade 2'}
+    ];
+
+    $scope.novoProcesso();
 
 
 
