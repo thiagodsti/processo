@@ -140,3 +140,11 @@ input[type="checkbox"]{
     -webkit-transform: scale(1.5);
     -o-transform: scale(1.5);
 }
+
+.modal-header-delete{
+    background-color: #c9302c !important;
+}
+
+.modal-header-edit{
+    background-color: #5cb85c !important; 
+}

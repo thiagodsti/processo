@@ -1,6 +1,6 @@
 angular.module("processo").controller("processoController", function($scope, $filter, processoService){
 
-  //Lucas utilizar o $scope.PageMode para controlar quando pode o campo ser editado ou não.
+    //Lucas utilizar o $scope.PageMode para controlar quando pode o campo ser editado ou não.
 
     $scope.processos = [];
     $scope.ocorrencias = [];
@@ -20,15 +20,15 @@ angular.module("processo").controller("processoController", function($scope, $fi
     $scope.isProcessSelected = false;
 
     $scope.novoProcesso = function() {
-      $scope.PageMode = 'SAVE';
-      $scope.ocorrencias = [];
-      $scope.irregularidades = [];
-      $scope.titulo = '';
-      $scope.descricao = '';
-      $scope.ocorrencia = {};
-      $scope.irregularidade = {};
-      $scope.isProcessSelected = false;
-      $scope.processo = {situacao: 'ABERTO'};
+        $scope.PageMode = 'SAVE';
+        $scope.ocorrencias = [];
+        $scope.irregularidades = [];
+        $scope.titulo = '';
+        $scope.descricao = '';
+        $scope.ocorrencia = {};
+        $scope.irregularidade = {};
+        $scope.isProcessSelected = false;
+        $scope.processo = {situacao: 'ABERTO'};
     };
 
     processoService.getProcesso().success(function (data, status) {
@@ -39,20 +39,20 @@ angular.module("processo").controller("processoController", function($scope, $fi
     });
 
     $scope.adicionarProcesso = function (processo){
-      if($scope.processoForm.$valid){
-        console.log(processo);
-        processo.ocorrencias = $scope.ocorrencias;
-        if(!processo.regularidade){
-          processo.irregularidades = $scope.irregularidades;
-        }
-        processoService.saveProcesso(processo).then(function() {
-            $scope.novoProcesso();
-        });
-        $scope.processos.push(processo);
+        if($scope.processoForm.$valid){
+            console.log(processo);
+            processo.ocorrencias = $scope.ocorrencias;
+            if(!processo.regularidade){
+                processo.irregularidades = $scope.irregularidades;
+            }
+            processoService.saveProcesso(processo).then(function() {
+                $scope.novoProcesso();
+            });
+            $scope.processos.push(processo);
 
-      } else {
-        console.log('Form inválido');
-      }
+        } else {
+            console.log('Form inválido');
+        }
     };
 
     $scope.toggleImg = function (isImgOpen, item){
@@ -75,16 +75,26 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.selectProcesso = function(processo){
         $scope.processo = processo;
+        $scope.ocorrencias = processo.ocorrencias;
         $scope.ocorrencia = {};
     };
 
     $scope.selectOcorrencia = function(ocorrencia){
-        $scope.ocorrencia = ocorrencia;
+        $scope.ocorrencia = angular.copy(ocorrencia);
+        $scope.selectedOcorrencia = angular.copy(ocorrencia);
     };
 
-    $scope.adicionarOcorrencia = function(){
-         $scope.ocorrencias.push($scope.ocorrencia);
-         $scope.ocorrencia = {};
+    $scope.executeActionOcorrencia = function(selectedOcorrencia){
+        if(!$scope.editModeOcorrencia &&  !$scope.deleteModeOcorrencia){
+            $scope.ocorrencias.push($scope.ocorrencia);
+            $scope.ocorrencia = {};
+            
+        }else if($scope.editModeOcorrencia){
+           var indice = $scope.ocorrencias.indexOf($scope.ocorrencia);
+           $scope.ocorrencia = selectedOcorrencia;
+        }else if($scope.deleteModeOcorrencia){
+            //Do Delete
+        }
     };
 
     $scope.removerProcesso = function (processo) {
@@ -92,16 +102,29 @@ angular.module("processo").controller("processoController", function($scope, $fi
     };
 
     $scope.isProcessoSelecionado = function (processo) {
-      $scope.PageMode = 'UPDATE';
+        $scope.PageMode = 'UPDATE';
         //return processos.some(function (processo) {
         //	return processo.selecionado;
         //});
     };
 
     $scope.adicionarIrregularidade = function () {
-      $scope.irregularidades.push($scope.irregularidade);
-      $scope.irregularidade = {};
+        $scope.irregularidades.push($scope.irregularidade);
+        $scope.irregularidade = {};
     };
+    
+    $scope.modeOcorrencia = function (edit, deleteMode){
+        if(edit){
+            $scope.editModeOcorrencia = true;
+            $scope.deleteModeOcorrencia = false;
+        }else if(deleteMode){
+            $scope.editModeOcorrencia = false;
+            $scope.deleteModeOcorrencia = true;
+        }else{
+            $scope.editModeOcorrencia = false;
+            $scope.deleteModeOcorrencia = false;
+        }
+    }
 
     $scope.gridOptionsProcessos = {
         enableRowSelection: true,
@@ -113,6 +136,10 @@ angular.module("processo").controller("processoController", function($scope, $fi
         enableFullRowSelection: true,
         selectionRowHeaderWidth: 35,
         rowHeight: 35,
+        columnDefs: [
+            { field: 'fiscal',name:'Teste Label Fiscal', headerCellClass: '' },
+            { field: 'processo',name:'Teste Label Processo',headerCellClass:''}
+        ]
         //        showGridFooter:true
     };
     $scope.gridOptionsOcorrencias = {
@@ -130,25 +157,25 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
 
     $scope.fiscais = [
-      {nome: 'Thiago Diniz da Silveira'},
-      {nome: 'Luis Antônio Nunes'},
-      {nome: 'Lucas Toledo'}
+        {nome: 'Thiago Diniz da Silveira'},
+        {nome: 'Luis Antônio Nunes'},
+        {nome: 'Lucas Toledo'}
     ];
 
     $scope.tiposDeFiscalizacao = [
-      {label: 'Fiscalização 1'},
-      {label: 'Fiscalização 2'}
+        {label: 'Fiscalização 1'},
+        {label: 'Fiscalização 2'}
     ];
 
     $scope.municipios = [
-      {municipio: 'Florianópolis', estado: 'SC'},
-      {municipio: 'São José', estado: 'SC'},
-      {municipio: 'Palhoça', estado: 'SC'}
+        {municipio: 'Florianópolis', estado: 'SC'},
+        {municipio: 'São José', estado: 'SC'},
+        {municipio: 'Palhoça', estado: 'SC'}
     ];
 
     $scope.irregularidadesTitulo = [
-      {titulo: 'Irregularidade 1'},
-      {titulo: 'Irregularidade 2'}
+        {titulo: 'Irregularidade 1'},
+        {titulo: 'Irregularidade 2'}
     ];
 
     $scope.novoProcesso();

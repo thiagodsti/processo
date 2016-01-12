@@ -1,10 +1,10 @@
-<button type="button" class="btn btn-primary add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal"ng-disabled="isOcorrenciaSelected()">Adicionar Ocorrência</button>
-<button type="button" class="btn btn-success add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal"ng-disabled="!isOcorrenciaSelected()">Editar Ocorrência</button>
-<button type="button" class="btn btn-danger add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal"ng-disabled="!isOcorrenciaSelected()">Deletar Ocorrência</button>
+<button type="button" class="btn btn-primary add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal" ng-disabled="isOcorrenciaSelected()" ng-click="modeOcorrencia()">Adicionar Ocorrência</button>
+<button type="button" class="btn btn-success add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal" ng-disabled="!isOcorrenciaSelected()" ng-click="modeOcorrencia(true, false)">Editar Ocorrência</button>
+<button type="button" class="btn btn-danger add_acorrencia" data-toggle="modal" data-target="#ocorrendiaModal" ng-disabled="!isOcorrenciaSelected()" ng-click="modeOcorrencia(false, true)">Deletar Ocorrência</button>
 
 <div id="ocorrendiaModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" ng-if="!deleteModeOcorrencia && !editModeOcorrencia">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times</button>
                 <h4 class="modal-title">Adicionar Ocorrência</h4>
@@ -24,7 +24,44 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button ng-click="adicionarOcorrencia()" type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>
+                <button ng-click="executeActionOcorrencia()" type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+        <div class="modal-content" ng-if="deleteModeOcorrencia && !editModeOcorrencia">
+            <div class="modal-header modal-header-delete">
+                <button type="button" class="close" data-dismiss="modal">&times</button>
+                <h4 class="modal-title">Deletar Ocorrência</h4>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja deletar a ocorrência?<p>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="executeActionOcorrencia()" type="button" class="btn btn-danger" data-dismiss="modal">Deletar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+        <div class="modal-content" ng-if="!deleteModeOcorrencia && editModeOcorrencia">
+            <div class="modal-header modal-header-edit">
+                <button type="button" class="close" data-dismiss="modal">&times</button>
+                <h4 class="modal-title">Editar Ocorrência</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label>Data:</label>
+                    <input ng-model="selectedOcorrencia.data" ng-disabled='true'/>
+                </div>
+                <div>
+                    <label>Título:</label>
+                    <input ng-model="selectedOcorrencia.titulo"/>
+                </div>
+                <div>
+                    <label>Descrição: </label>
+                    <input ng-model="selectedOcorrencia.descricao"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="executeActionOcorrencia(selectedOcorrencia)" type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
