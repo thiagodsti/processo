@@ -14,8 +14,8 @@ angular.module("processo").controller("processoController", function($scope, $fi
     $scope.toggleImgSrcCadastro = '/icons/arrow_up.png';
     $scope.toggleImgOpenCadastro = true;
 
-    $scope.toggleImgSrcLista = '/icons/arrow_up.png';
-    $scope.toggleImgOpenLista = true;
+    $scope.toggleImgSrcLista = '/icons/arrow_down.png';
+    $scope.toggleImgOpenLista = false;
 
     $scope.isProcessSelected = false;
 
@@ -88,7 +88,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
         if(!$scope.editModeOcorrencia &&  !$scope.deleteModeOcorrencia){
             $scope.ocorrencias.push($scope.ocorrencia);
             $scope.ocorrencia = {};
-            
+
         }else if($scope.editModeOcorrencia){
            var indice = $scope.ocorrencias.indexOf($scope.ocorrencia);
            $scope.ocorrencia = selectedOcorrencia;
@@ -112,7 +112,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
         $scope.irregularidades.push($scope.irregularidade);
         $scope.irregularidade = {};
     };
-    
+
     $scope.modeOcorrencia = function (edit, deleteMode){
         if(edit){
             $scope.editModeOcorrencia = true;
