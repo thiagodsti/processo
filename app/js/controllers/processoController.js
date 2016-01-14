@@ -124,7 +124,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
             $scope.editModeOcorrencia = false;
             $scope.deleteModeOcorrencia = false;
         }
-    }
+    };
 
     $scope.gridOptionsProcessos = {
         enableRowSelection: true,
@@ -137,8 +137,11 @@ angular.module("processo").controller("processoController", function($scope, $fi
         selectionRowHeaderWidth: 35,
         rowHeight: 35,
         columnDefs: [
-            { field: 'fiscal',name:'Teste Label Fiscal', headerCellClass: '' },
-            { field: 'processo',name:'Teste Label Processo',headerCellClass:''}
+          { field: 'processo',name:'Processo',headerCellClass:''},
+          { field: 'fiscal.nome',name:'Fiscal', headerCellClass: '' },
+          { field: 'municipio.municipio', name:'Municipio',headerCellClass:''},
+          { field: 'dataVisita', name: 'Data Visita', type: 'date', cellFilter: 'date:"dd-MM-yyyy"', headerCellClass: ''},
+          { field: 'situacao', name: 'Situação', headerCellClass: ''}
         ]
         //        showGridFooter:true
     };
