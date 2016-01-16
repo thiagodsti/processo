@@ -30,7 +30,8 @@
     "angular-messages": "~1.4.8",
     "angular-i18n": "~1.4.8",
     "angular-ui-grid": "~3.0.7",
-	"requirejs": "~2.1.22",
-	"ng-dialog": "~0.5.6"
+    "requirejs": "~2.1.22",
+    "ng-dialog": "~0.5.6",
+    "remarkable-bootstrap-notify": "~3.1.3"
   }
 }

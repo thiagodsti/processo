@@ -20,12 +20,17 @@
         <!--<script src="js/factories/dialog/dialog.factory.js"></script>-->
         <script src="js/services/processoService.js"></script>
         <script src="js/configs/configValue.js"></script>
+        <script src="components/remarkable-bootstrap-notify/dist/bootstrap-notify.js"></script>
         <!--<script data-main="js/app.all" src="components/requirejs/require.js"></script>-->
+
     </head>
     <body ng-controller="processoController">
         <div>
             <h1 class="title">Processos</h1>
             <hr />
+            <div ng-messages="processoForm.$error" style="color:maroon" role="alert">
+
+            </div>
             <div class="main_panel_div">
                 <div class="panel panel-primary">
                     <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#panel-lista" ng-click="toggleImg('toggleImgOpenLista', 'toggleImgSrcLista')">

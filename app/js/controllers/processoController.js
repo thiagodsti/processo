@@ -40,20 +40,22 @@ angular.module("processo").controller("processoController", function($scope, $fi
     });
 
     $scope.adicionarProcesso = function (processo){
-        if(validarFormulario(processo)){
-          if($scope.PageMode == 'SAVE') {
-            processoService.saveProcesso(processo).then(function() {
-                $scope.novoProcesso();
-            });
-            $scope.processos.push(processo);
-          } else if ($scope.PageMode == 'UPDATE') {
-            processoService.updateProcesso(processo).then(function() {
-                $scope.novoProcesso();
-            });
-          }
-        } else {
-            console.log('Form inválido');
+      if(validarFormulario(processo)){
+        if($scope.PageMode == 'SAVE') {
+          processoService.saveProcesso(processo).then(function() {
+              $scope.novoProcesso();
+              mostrarNotificacao('Processo', 'salvo com sucesso', 'info');
+          });
+          $scope.processos.push(processo);
+        } else if ($scope.PageMode == 'UPDATE') {
+          processoService.updateProcesso(processo).then(function() {
+              $scope.novoProcesso();
+              mostrarNotificacao('Processo', 'editado com sucesso', 'info');
+          });
         }
+      } else {
+        mostrarNotificacao('Formulário Inválido.', 'Há campos inválidos no formulário', 'danger');
+      }
     };
 
     $scope.fecharProcesso = function (processo) {
@@ -64,7 +66,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
             $scope.novoProcesso();
         });
       } else {
-        console.log('Form inválido');
+        mostrarNotificacao('Formulário Inválido.', 'Há campos inválidos no formulário', 'danger');
       }
 
     };
@@ -83,6 +85,33 @@ angular.module("processo").controller("processoController", function($scope, $fi
       if(!processo.regularidade){
           processo.irregularidades = $scope.irregularidades;
       }
+    }
+
+    function mostrarNotificacao(titulo, message, type) {
+      if(type=='danger'){
+        icon = 'glyphicon glyphicon-warning-sign';
+      } else if (type=='info') {
+        icon = 'glyphicon glyphicon glyphicon-ok';
+      }
+      $.notify({
+        // options
+        icon: icon,
+        title: titulo,
+        message: message
+      },{
+        // settings
+        type: type,
+        allow_dismiss: true,
+        newest_on_top: false,
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 5000,
+	      timer: 1000,
+        placement: {
+          align: 'center'
+        }
+      });
     }
 
     $scope.toggleImg = function (isImgOpen, item){
@@ -161,14 +190,9 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.isProcessoSelecionado = function (processo) {
         $scope.PageMode = 'UPDATE';
-        //return processos.some(function (processo) {
-        //	return processo.selecionado;
-        //});
     };
 
     $scope.modeOcorrencia = function (edit, deleteMode){
-      //$scope.ocorrencia = {data: new Date()};
-      //console.log($scope.ocorrencia);
         if(edit){
           $scope.editModeOcorrencia = true;
           $scope.deleteModeOcorrencia = false;
@@ -227,7 +251,6 @@ angular.module("processo").controller("processoController", function($scope, $fi
           { field: 'titulo', name: 'Titulo', minWidth: 100, width: '*'},
           { field: 'descricao', name: 'Descricao', minWidth: 100, width: '*'}
         ]
-        //        showGridFooter:true
     };
 
     $scope.gridOptionsIrregularidades = {

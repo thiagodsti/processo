@@ -12,9 +12,9 @@ angular.module('processo', ['ui.grid', 'ui.grid.selection', 'ui.grid.moveColumns
             gridOptions:'=',
             data: '=',
             selectCallback: '=',
-            unselectCallback: '='
+            unselectCallback: '=',
         },
-        link: link
+        link: link,
     };
 });
 function link(scope, element){
