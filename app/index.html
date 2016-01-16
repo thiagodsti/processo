@@ -28,11 +28,14 @@
             <hr />
             <div class="main_panel_div">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Lista de Processos<img ng-click="toggleImg('toggleImgOpenLista', 'toggleImgSrcLista')" id="toggle-form" data-toggle="collapse" data-target="#panel-lista" src="{{toggleImgSrcLista}}"></div>
+                    <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#panel-lista" ng-click="toggleImg('toggleImgOpenLista', 'toggleImgSrcLista')">
+                      Lista de Processos
+                      <img  id="toggle-form" src="{{toggleImgSrcLista}}">
+                    </div>
                     <div class="collapse" id="panel-lista">
                         <div class="panel-body">
                             <div class="grid_lista">
-                                <grid grid-options="gridOptionsProcessos" data="processos" select-callback="selectProcesso"></grid>
+                                <grid grid-options="gridOptionsProcessos" data="processos" select-callback="selectProcesso" unselect-callback='novoProcesso'></grid>
                             </div>
                         </div>
                     </div>
@@ -41,87 +44,82 @@
 
             <div class="main_panel_div">
                 <div class="main_form panel panel-primary">
-                    <div class="panel-heading">Cadastro de Processos <img ng-click="toggleImg('toggleImgOpenCadastro', 'toggleImgSrcCadastro')" id="toggle-form" data-toggle="collapse" data-target="#panel-cadastro" src="{{toggleImgSrcCadastro}}"></div>
+                    <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#panel-cadastro" ng-click="toggleImg('toggleImgOpenCadastro', 'toggleImgSrcCadastro')" >
+                      Cadastro de Processos
+                      <img id="toggle-form" src="{{toggleImgSrcCadastro}}">
+                    </div>
                     <div class="collapse in" id="panel-cadastro">
                         <div class="panel-body" >
                             <div class="process_form" style="width:100%">
                                 <form name="processoForm">
                                     <div class="input-form">
                                         <label>Processo:</label>
-                                        <input class="formControl input_size" type="text" ng-model="processo.processo"
+                                        <input class="formControl input_size" type="text" ng-model="processo.processo" ng-disabled="PageMode == 'UPDATE'"
                                           placeholder="Processo" ng-required="true" ng-minlength="3" />
                                     </div>
                                     <div class="input-form">
                                         <label>Fiscal:</label>
                                         <select class="input_size"
-                                          ng-options="item as item.nome for item in fiscais | orderBy:'nome'"
+                                          ng-options="item as item.nome for item in fiscais | orderBy:'nome' track by item"
                                           ng-model="processo.fiscal"
-                                          ng-required='true'>
+                                          ng-required='true'
+                                          ng-disabled="PageMode == 'UPDATE'">
                                           <option style="display:none" value="">Selecione</option>
                                         </select>
                                     </div>
                                     <div class="input-form">
                                         <label>Tipo Fiscalização:</label>
                                         <select class="input_size"
-                                          ng-options="item as item.label for item in tiposDeFiscalizacao | orderBy:'label'"
+                                          ng-options="item as item.label for item in tiposDeFiscalizacao | orderBy:'label' track by item"
                                           ng-model="processo.tipoFiscalizacao"
-                                          ng-required='true'>
+                                          ng-required='true'
+                                          ng-disabled="PageMode == 'UPDATE'">
                                             <option style="display:none" value="">Selecione</option>
                                         </select>
                                     </div>
                                     <div class="input-form">
                                         <label>Município:</label>
                                         <select class="input_size"
-                                          ng-options="item as item.municipio for item in municipios | orderBy:'municipio'"
+                                          ng-options="item as item.municipio for item in municipios | orderBy:'municipio' track by item"
                                           ng-model="processo.municipio"
-                                          ng-required='true'>
+                                          ng-required='true'
+                                          ng-disabled="PageMode == 'UPDATE'">
                                             <option style="display:none" value="">Selecione</option>
                                         </select>
                                     </div>
 
                                     <div class="input-form">
                                         <label>Regularidade:</label>
-                                        <input type="checkbox" ng-model="processo.regularidade"/>
+                                        <input type="checkbox" ng-model="processo.regularidade" ng-disabled="PageMode == 'UPDATE'"/>
                                     </div>
-                                    <div class="input-form">
+                                    <div class="input-form" ng-show='processo.regularidade'>
                                         <label>Motivo Regularidade:</label>
                                         <input class="formControl input_size" type="text"
-                                          ng-model="processo.motivoRegularidade" ng-disabled='!processo.regularidade'/>
+                                          ng-model="processo.motivoRegularidade"/>
                                     </div>
-                                    <!--
-                                    <div class="input-form">
-                                        <label>Irregularidade Titulo:</label>
-                                        <select class="input_size"
-                                          ng-options="item.titulo as item.titulo for item in irregularidadesTitulo | orderBy:'titulo'"
-                                          ng-model="irregularidade.titulo"
-                                          ng-required='true'
-                                          ng-disabled='processo.regularidade'>
-                                            <option style="display:none" value="">Selecione</option>
-                                        </select>
 
-                                        <label>Descrição Irregularidade:</label>
-                                        <input class="formControl input_size" type="text"
-                                          ng-model="irregularidade.descricao" ng-disabled='processo.regularidade'/>
-
-                                        <button class="btn btn-primary btn-block" ng-click="adicionarIrregularidade()" ng-disabled='processo.regularidade'>
-                                          <img style="width: 20px; float: left" src="icons/save.png">Adicionar Irregularidade
-                                        </button>
+                                    <div class="irregularidades-div" ng-show='!processo.regularidade'>
+                                        <label>Irregularidades:</label>
+                                        <div style="display: inline !important;" ng-include="'view/cadastroIrregularidadeModal.html'"></div>
+                                        <div class="grid_div">
+                                            <grid grid-options="gridOptionsIrregularidades" data="irregularidades" select-callback="selectIrregularidade"></grid>
+                                        </div>
                                     </div>
-                                  -->
+
                                     <div class="input-form">
                                         <label>Autuado:</label>
-                                        <input class="formControl input_size" type="text" ng-model="processo.autuado"/>
+                                        <input class="formControl input_size" type="text" ng-model="processo.autuado" ng-disabled="PageMode == 'UPDATE'"/>
                                     </div>
-                                    <!--
+
                                     <div class="input-form">
                                         <label>Data Visita:</label>
-                                        <input class="formControl input_size" type="date" ng-model="processo.dataVisita"/>
+                                        <input class="formControl input_size" type="date" ng-model="processo.dataVisita" ng-required='true' ng-disabled="PageMode == 'UPDATE'"/>
                                     </div>
                                     <div class="input-form">
                                         <label>Data Criação:</label>
                                         <input class="formControl input_size" type="date" ng-model="processo.dataCriacao" ng-disabled='true'/>
                                     </div>
-                                  -->
+
                                     <div class="input-form">
                                         <label>Situação:</label>
                                         <input class="formControl input_size" type="text" ng-model="processo.situacao" ng-disabled='true'/>
@@ -136,13 +134,21 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
-                        <div class="process_buttons">
-                            <button class="btn btn-primary btn-block" ng-click="adicionarProcesso(processo)"><img style="width: 20px; float: left" src="icons/save.png">Salvar Processo</button>
-                            <button class="btn btn-primary btn-block" ng-click="novoProcesso()">
-                              <img style="width: 20px; float: left" src="icons/save.png">Novo
-                            </button>
-                            <!--<button class="btn btn-primary btn-block" ng-click="removerProcesso(processo)" ng-if="isProcessoSelecionado(processo)">Apagar Processo</button>-->
+
+                            <div class='process_buttons'>
+                              <button type="button" class="btn btn-primary" ng-click="adicionarProcesso(processo)" ng-show='!isProcessoClosed()'>
+                                <span class='glyphicon glyphicon-floppy-disk' />
+                                Salvar
+                              </button>
+                              <button type="button" class="btn btn-primary" ng-click="fecharProcesso(processo)" ng-show='!isProcessoClosed()'>
+                                <span class='glyphicon glyphicon-floppy-saved' />
+                                Salvar/Fechar
+                              </button>
+                              <button type="button" class="btn btn-primary" ng-click="novoProcesso()">
+                                <span class='glyphicon glyphicon-file' />
+                                Novo
+                              </button>
+                            </div>
                         </div>
                     </div>
                 </div>

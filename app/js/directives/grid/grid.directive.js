@@ -11,7 +11,8 @@ angular.module('processo', ['ui.grid', 'ui.grid.selection', 'ui.grid.moveColumns
         scope:{
             gridOptions:'=',
             data: '=',
-            selectCallback: '='
+            selectCallback: '=',
+            unselectCallback: '='
         },
         link: link
     };
@@ -30,9 +31,12 @@ function link(scope, element){
                 if(row.isSelected){
                     scope.selectCallback(row.entity);
                 }else{
+                  if(scope.unselectCallback){
+                    scope.unselectCallback();
+                  } else {
                     scope.selectCallback({});
+                  }
                 }
-
             });
         }
     });

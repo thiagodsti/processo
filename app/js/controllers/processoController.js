@@ -28,7 +28,8 @@ angular.module("processo").controller("processoController", function($scope, $fi
         $scope.ocorrencia = {};
         $scope.irregularidade = {};
         $scope.isProcessSelected = false;
-        $scope.processo = {situacao: 'ABERTO'};
+        $scope.processo = {situacao: 'ABERTO', dataVisita: new Date(), dataCriacao: new Date()};
+
     };
 
     processoService.getProcesso().success(function (data, status) {
@@ -39,21 +40,50 @@ angular.module("processo").controller("processoController", function($scope, $fi
     });
 
     $scope.adicionarProcesso = function (processo){
-        if($scope.processoForm.$valid){
-            console.log(processo);
-            processo.ocorrencias = $scope.ocorrencias;
-            if(!processo.regularidade){
-                processo.irregularidades = $scope.irregularidades;
-            }
+        if(validarFormulario(processo)){
+          if($scope.PageMode == 'SAVE') {
             processoService.saveProcesso(processo).then(function() {
                 $scope.novoProcesso();
             });
             $scope.processos.push(processo);
-
+          } else if ($scope.PageMode == 'UPDATE') {
+            processoService.updateProcesso(processo).then(function() {
+                $scope.novoProcesso();
+            });
+          }
         } else {
             console.log('Form inválido');
         }
     };
+
+    $scope.fecharProcesso = function (processo) {
+      if(validarFormulario(processo)) {
+        preencherProcesso(processo);
+        processo.situacao = 'FECHADO';
+        processoService.updateProcesso(processo).then(function() {
+            $scope.novoProcesso();
+        });
+      } else {
+        console.log('Form inválido');
+      }
+
+    };
+
+    function validarFormulario(processo) {
+      if ($scope.processoForm.$valid) {
+        preencherProcesso(processo);
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function preencherProcesso(processo) {
+      processo.ocorrencias = $scope.ocorrencias;
+      if(!processo.regularidade){
+          processo.irregularidades = $scope.irregularidades;
+      }
+    }
 
     $scope.toggleImg = function (isImgOpen, item){
         if($scope[isImgOpen]){
@@ -73,10 +103,26 @@ angular.module("processo").controller("processoController", function($scope, $fi
         }
     };
 
+    $scope.isProcessoClosed = function() {
+      return $scope.processo.situacao == 'FECHADO';
+    };
+
+    $scope.isIrregularidadeSelected = function (){
+        if($scope.irregularidade && angular.equals({}, $scope.irregularidade)){
+            return false;
+        }else{
+            return true;
+        }
+    };
+
     $scope.selectProcesso = function(processo){
         $scope.processo = processo;
+        console.log(processo);
         $scope.ocorrencias = processo.ocorrencias;
         $scope.ocorrencia = {};
+        $scope.irregularidades = processo.irregularidades;
+        $scope.irregularidade = {};
+        $scope.PageMode = 'UPDATE';
     };
 
     $scope.selectOcorrencia = function(ocorrencia){
@@ -84,16 +130,28 @@ angular.module("processo").controller("processoController", function($scope, $fi
         $scope.selectedOcorrencia = angular.copy(ocorrencia);
     };
 
+    $scope.selectIrregularidade = function(irregularidade){
+        $scope.irregularidade = angular.copy(irregularidade);
+        $scope.selectedIrregularidade = angular.copy(irregularidade);
+    };
+
     $scope.executeActionOcorrencia = function(selectedOcorrencia){
         if(!$scope.editModeOcorrencia &&  !$scope.deleteModeOcorrencia){
             $scope.ocorrencias.push($scope.ocorrencia);
             $scope.ocorrencia = {};
-
         }else if($scope.editModeOcorrencia){
            var indice = $scope.ocorrencias.indexOf($scope.ocorrencia);
            $scope.ocorrencia = selectedOcorrencia;
-        }else if($scope.deleteModeOcorrencia){
-            //Do Delete
+        }
+    };
+
+    $scope.executeActionIrregularidade = function(selectedIrregularidade){
+        if(!$scope.editModeIrregularidade &&  !$scope.deleteModeIrregularidade){
+            $scope.irregularidades.push($scope.irregularidade);
+            $scope.irregularidade = {};
+        }else if($scope.editModeIrregularidade){
+           var indice = $scope.irregularidades.indexOf($scope.irregularidade);
+           $scope.irregularidade = selectedIrregularidade;
         }
     };
 
@@ -108,54 +166,82 @@ angular.module("processo").controller("processoController", function($scope, $fi
         //});
     };
 
-    $scope.adicionarIrregularidade = function () {
-        $scope.irregularidades.push($scope.irregularidade);
-        $scope.irregularidade = {};
+    $scope.modeOcorrencia = function (edit, deleteMode){
+      //$scope.ocorrencia = {data: new Date()};
+      //console.log($scope.ocorrencia);
+        if(edit){
+          $scope.editModeOcorrencia = true;
+          $scope.deleteModeOcorrencia = false;
+        }else if(deleteMode){
+          $scope.editModeOcorrencia = false;
+          $scope.deleteModeOcorrencia = true;
+          $scope.ocorrencias.pop($scope.ocorrencia);
+          $scope.ocorrencia = {};
+        }else{
+          $scope.editModeOcorrencia = false;
+          $scope.deleteModeOcorrencia = false;
+        }
     };
 
-    $scope.modeOcorrencia = function (edit, deleteMode){
+    $scope.modeIrregularidade = function (edit, deleteMode){
         if(edit){
-            $scope.editModeOcorrencia = true;
-            $scope.deleteModeOcorrencia = false;
+          $scope.editModeIrregularidade = true;
+          $scope.deleteModeIrregularidade = false;
         }else if(deleteMode){
-            $scope.editModeOcorrencia = false;
-            $scope.deleteModeOcorrencia = true;
+          $scope.editModeOcorrencia = false;
+          $scope.deleteModeOcorrencia = true;
+          $scope.irregularidades.pop($scope.irregularidade);
+          $scope.irregularidade = {};
         }else{
-            $scope.editModeOcorrencia = false;
-            $scope.deleteModeOcorrencia = false;
+          $scope.editModeIrregularidade = false;
+          $scope.deleteModeIrregularidade = false;
         }
     };
 
     $scope.gridOptionsProcessos = {
         enableRowSelection: true,
-        //        enableSelectAll: true,
         multiSelect: false,
-        //        noUnselect: true,
         paginationPageSize: 12,
         paginationPageSizes: [12, 24, 36],
         enableFullRowSelection: true,
         selectionRowHeaderWidth: 35,
         rowHeight: 35,
         columnDefs: [
-          { field: 'processo',name:'Processo',headerCellClass:''},
-          { field: 'fiscal.nome',name:'Fiscal', headerCellClass: '' },
-          { field: 'municipio.municipio', name:'Municipio',headerCellClass:''},
-          { field: 'dataVisita', name: 'Data Visita', type: 'date', cellFilter: 'date:"dd-MM-yyyy"', headerCellClass: ''},
-          { field: 'situacao', name: 'Situação', headerCellClass: ''}
+          { field: 'processo',name:'Processo',headerCellClass:'', minWidth: 100, width: '*'},
+          { field: 'fiscal.nome',name:'Fiscal', headerCellClass: '', minWidth: 100, width: '*' },
+          { field: 'municipio.municipio', name:'Municipio',headerCellClass:'', minWidth: 100, width: '*'},
+          { field: 'dataVisita', name: 'Data Visita', type: 'date', cellFilter: 'date:"dd/MM/yyyy"', headerCellClass: '', minWidth: 100, width: '*'},
+          { field: 'situacao', name: 'Situação', headerCellClass: '', minWidth: 100, width: '*'}
         ]
-        //        showGridFooter:true
     };
     $scope.gridOptionsOcorrencias = {
         enableRowSelection: true,
-        //        enableSelectAll: true,
         multiSelect: false,
-        //        noUnselect: true,
         paginationPageSize: 12,
         paginationPageSizes: [12, 24, 36],
         enableFullRowSelection: true,
         selectionRowHeaderWidth: 35,
         rowHeight: 35,
+        columnDefs: [
+          { field: 'data', name: 'Data', type: 'date', cellFilter: 'date:"dd/MM/yyyy"', minWidth: 100, width: '*'},
+          { field: 'titulo', name: 'Titulo', minWidth: 100, width: '*'},
+          { field: 'descricao', name: 'Descricao', minWidth: 100, width: '*'}
+        ]
         //        showGridFooter:true
+    };
+
+    $scope.gridOptionsIrregularidades = {
+        enableRowSelection: true,
+        multiSelect: false,
+        paginationPageSize: 12,
+        paginationPageSizes: [12, 24, 36],
+        enableFullRowSelection: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 35,
+        columnDefs: [
+          { field: 'titulo', name: 'Titulo', minWidth: 100, width: '*'},
+          { field: 'descricao', name: 'Descricao', minWidth: 100, width: '*'}
+        ]
     };
 
 
@@ -182,8 +268,4 @@ angular.module("processo").controller("processoController", function($scope, $fi
     ];
 
     $scope.novoProcesso();
-
-
-
-
 });

@@ -1,0 +1,81 @@
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#irregularidadeModal" ng-disabled="isIrregularidadeSelected() || isProcessoClosed()" ng-click="modeIrregularidade()">
+  <span class='glyphicon glyphicon-plus' />
+  Irregularidade
+</button>
+<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#irregularidadeModal" ng-disabled="!isIrregularidadeSelected() || isProcessoClosed()" ng-click="modeIrregularidade(true, false)">
+  <span class='glyphicon glyphicon-pencil' />
+  Irregularidade
+</button>
+<button type="button" class="btn btn-danger btn-sm"  data-target="#irregularidadeModal" ng-disabled="!isIrregularidadeSelected() || isProcessoClosed()" ng-click="modeIrregularidade(false, true)">
+  <span class='glyphicon glyphicon-minus' />
+  Irregularidade
+</button>
+
+<div id="irregularidadeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" ng-if="!deleteModeIrregularidade && !editModeIrregularidade">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times</button>
+                <h4 class="modal-title">Adicionar Ocorrência</h4>
+            </div>
+            <div class="modal-body">
+              <div>
+                <label>Titulo:</label>
+                <select class="input_size"
+                  ng-options="item.titulo as item.titulo for item in irregularidadesTitulo | orderBy:'titulo'"
+                  ng-model="irregularidade.titulo"
+                  ng-disabled='processo.regularidade'>
+                    <option style="display:none" value="">Selecione</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Descrição:</label>
+                <input class="formControl input_size" type="text"
+                  ng-model="irregularidade.descricao" ng-disabled='processo.regularidade'/>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="executeActionIrregularidade()" type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+        <div class="modal-content" ng-if="deleteModeIrregularidade && !editModeIrregularidade">
+            <div class="modal-header modal-header-delete">
+                <button type="button" class="close" data-dismiss="modal">&times</button>
+                <h4 class="modal-title">Deletar Ocorrência</h4>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja deletar a irregularidade?<p>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="executeActionIrregularidade()" type="button" class="btn btn-danger" data-dismiss="modal">Deletar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+        <div class="modal-content" ng-if="!deleteModeIrregularidade && editModeIrregularidade">
+            <div class="modal-header modal-header-edit">
+                <button type="button" class="close" data-dismiss="modal">&times</button>
+                <h4 class="modal-title">Editar Irregularidade</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label>Data:</label>
+                    <input ng-model="selectedIrregularidade.data" ng-disabled='true'/>
+                </div>
+                <div>
+                    <label>Título:</label>
+                    <input ng-model="selectedIrregularidade.titulo"/>
+                </div>
+                <div>
+                    <label>Descrição: </label>
+                    <input ng-model="selectedIrregularidade.descricao"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="executeActionIrregularidade(selectedIrregularidade)" type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
