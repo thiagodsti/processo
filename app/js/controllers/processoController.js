@@ -166,11 +166,13 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.executeActionOcorrencia = function(selectedOcorrencia){
         if(!$scope.editModeOcorrencia &&  !$scope.deleteModeOcorrencia){
+            $scope.ocorrencia.data = new Date();
             $scope.ocorrencias.push($scope.ocorrencia);
             $scope.ocorrencia = {};
         }else if($scope.editModeOcorrencia){
            var indice = $scope.ocorrencias.indexOf($scope.ocorrencia);
            $scope.ocorrencia = selectedOcorrencia;
+           $scope.ocorrencia.data = new Date();
         }
     };
 

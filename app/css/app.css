@@ -155,3 +155,10 @@ input[type="checkbox"]{
 .modal-header-edit{
     background-color: #5cb85c !important;
 }
+
+.modal-body label{
+    width: 85px;
+}
+.modal-body server-file{
+    width: 340px;
+}

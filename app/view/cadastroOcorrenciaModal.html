@@ -1,14 +1,14 @@
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ocorrenciaModal" ng-disabled="isOcorrenciaSelected() || isProcessoClosed()" ng-click="modeOcorrencia()">
-  <span class='glyphicon glyphicon-plus' />
-  Ocorrência
+    <span class='glyphicon glyphicon-plus' />
+    Ocorrência
 </button>
 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#ocorrenciaModal" ng-disabled="!isOcorrenciaSelected() || isProcessoClosed()" ng-click="modeOcorrencia(true, false)">
-  <span class='glyphicon glyphicon-pencil' />
-  Ocorrência
+    <span class='glyphicon glyphicon-pencil' />
+    Ocorrência
 </button>
 <button type="button" class="btn btn-danger btn-sm" data-target="#ocorrenciaModal" ng-disabled="!isOcorrenciaSelected() || isProcessoClosed()" ng-click="modeOcorrencia(false, true)">
-  <span class='glyphicon glyphicon-minus' />
-  Ocorrência
+    <span class='glyphicon glyphicon-minus' />
+    Ocorrência
 </button>
 
 <div id="ocorrenciaModal" class="modal fade" role="dialog">
@@ -30,6 +30,10 @@
                 <div>
                     <label>Descrição: </label>
                     <input ng-model="ocorrencia.descricao"/>
+                </div>
+                <div>
+                    <label>Arquivo: </label>
+                    <server-file file="file"></server-file>
                 </div>
             </div>
             <div class="modal-footer">
@@ -67,6 +71,10 @@
                 <div>
                     <label>Descrição: </label>
                     <input ng-model="selectedOcorrencia.descricao"/>
+                </div>
+                <div>
+                    <label>Arquivo: </label>
+                    <server-file file="file"></server-file>
                 </div>
             </div>
             <div class="modal-footer">
