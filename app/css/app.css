@@ -79,7 +79,7 @@ td {
     padding-top: 15px;
 }
 
-img#toggle-form{
+.toggle-form{
     float:right;
     cursor:pointer;
     width:25px;
