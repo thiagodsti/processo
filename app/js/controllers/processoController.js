@@ -5,6 +5,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
     $scope.processos = [];
     $scope.ocorrencias = [];
     $scope.irregularidades = [];
+    $scope.processoHandler = {};
 
     $scope.titulo = '';
     $scope.descricao = '';
@@ -53,6 +54,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
               mostrarNotificacao('Processo', 'editado com sucesso', 'info');
           });
         }
+        $scope.processoHandler.unSelectAll();
       } else {
         mostrarNotificacao('Formulário Inválido.', 'Há campos inválidos no formulário', 'danger');
       }
@@ -166,15 +168,27 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.executeActionOcorrencia = function(selectedOcorrencia){
         if(!$scope.editModeOcorrencia &&  !$scope.deleteModeOcorrencia){
-            $scope.ocorrencia.data = new Date();
+//            $scope.ocorrencia.data = new Date();
             $scope.ocorrencias.push($scope.ocorrencia);
             $scope.ocorrencia = {};
         }else if($scope.editModeOcorrencia){
-           var indice = $scope.ocorrencias.indexOf($scope.ocorrencia);
+           var indice = findOcorrenciaIndexById($scope.ocorrencia._id);
+           $scope.ocorrencias[indice] = selectedOcorrencia
            $scope.ocorrencia = selectedOcorrencia;
-           $scope.ocorrencia.data = new Date();
+//           $scope.ocorrencia.data = new Date();
         }
     };
+    
+    function findOcorrenciaIndexById (id){
+        var ind = 0;
+        angular.forEach($scope.ocorrencias, function(oc){
+            if(oc._id === id){
+                return;
+            }
+            ind++;
+        })
+        return  ind;
+    }
 
     $scope.executeActionIrregularidade = function(selectedIrregularidade){
         if(!$scope.editModeIrregularidade &&  !$scope.deleteModeIrregularidade){
