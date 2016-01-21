@@ -20,17 +20,21 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.isProcessSelected = false;
 
-    $scope.novoProcesso = function() {
-        $scope.PageMode = 'SAVE';
-        $scope.ocorrencias = [];
-        $scope.irregularidades = [];
-        $scope.titulo = '';
-        $scope.descricao = '';
-        $scope.ocorrencia = {};
-        $scope.irregularidade = {};
-        $scope.isProcessSelected = false;
-        $scope.processo = {situacao: 'ABERTO', dataVisita: new Date(), dataCriacao: new Date()};
+    $scope.init = function() {
+      $scope.PageMode = 'SAVE';
+      $scope.ocorrencias = [];
+      $scope.irregularidades = [];
+      $scope.titulo = '';
+      $scope.descricao = '';
+      $scope.ocorrencia = {};
+      $scope.irregularidade = {};
+      $scope.isProcessSelected = false;
+      $scope.processo = {situacao: 'ABERTO', dataVisita: new Date(), dataCriacao: new Date()};
+    };
 
+    $scope.novoProcesso = function() {
+      $scope.init();
+      $scope.processoHandler.unSelectAll();
     };
 
     processoService.getProcesso().success(function (data, status) {
@@ -54,7 +58,6 @@ angular.module("processo").controller("processoController", function($scope, $fi
               mostrarNotificacao('Processo', 'editado com sucesso', 'info');
           });
         }
-        $scope.processoHandler.unSelectAll();
       } else {
         mostrarNotificacao('Formulário Inválido.', 'Há campos inválidos no formulário', 'danger');
       }
@@ -173,12 +176,12 @@ angular.module("processo").controller("processoController", function($scope, $fi
             $scope.ocorrencia = {};
         }else if($scope.editModeOcorrencia){
            var indice = findOcorrenciaIndexById($scope.ocorrencia._id);
-           $scope.ocorrencias[indice] = selectedOcorrencia
+           $scope.ocorrencias[indice] = selectedOcorrencia;
            $scope.ocorrencia = selectedOcorrencia;
 //           $scope.ocorrencia.data = new Date();
         }
     };
-    
+
     function findOcorrenciaIndexById (id){
         var ind = 0;
         angular.forEach($scope.ocorrencias, function(oc){
@@ -186,7 +189,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
                 return;
             }
             ind++;
-        })
+        });
         return  ind;
     }
 
@@ -278,33 +281,33 @@ angular.module("processo").controller("processoController", function($scope, $fi
         selectionRowHeaderWidth: 35,
         rowHeight: 35,
         columnDefs: [
-          { field: 'titulo', name: 'Titulo', minWidth: 100, width: '*'},
+          { field: 'titulo.titulo', name: 'Titulo', minWidth: 100, width: '*'},
           { field: 'descricao', name: 'Descricao', minWidth: 100, width: '*'}
         ]
     };
 
 
     $scope.fiscais = [
-        {nome: 'Thiago Diniz da Silveira'},
-        {nome: 'Luis Antônio Nunes'},
-        {nome: 'Lucas Toledo'}
+        {id: 1, nome: 'Thiago Diniz da Silveira'},
+        {id: 2, nome: 'Luis Antônio Nunes'},
+        {id: 3, nome: 'Lucas Toledo'}
     ];
 
     $scope.tiposDeFiscalizacao = [
-        {label: 'Fiscalização 1'},
-        {label: 'Fiscalização 2'}
+        {id: 1, label: 'Fiscalização 1'},
+        {id: 2, label: 'Fiscalização 2'}
     ];
 
     $scope.municipios = [
-        {municipio: 'Florianópolis', estado: 'SC'},
-        {municipio: 'São José', estado: 'SC'},
-        {municipio: 'Palhoça', estado: 'SC'}
+        {id: 1, municipio: 'Florianópolis', estado: 'SC'},
+        {id: 2, municipio: 'São José', estado: 'SC'},
+        {id: 3, municipio: 'Palhoça', estado: 'SC'}
     ];
 
     $scope.irregularidadesTitulo = [
-        {titulo: 'Irregularidade 1'},
-        {titulo: 'Irregularidade 2'}
+        {id: 1, titulo: 'Irregularidade 1'},
+        {id: 2, titulo: 'Irregularidade 2'}
     ];
 
-    $scope.novoProcesso();
+    $scope.init();
 });

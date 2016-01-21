@@ -22,7 +22,7 @@
               <div>
                 <label>Titulo:</label>
                 <select class="input_size"
-                  ng-options="item.titulo as item.titulo for item in irregularidadesTitulo | orderBy:'titulo'"
+                  ng-options="item as item.titulo for item in irregularidadesTitulo | orderBy:'titulo' track by item.id"
                   ng-model="irregularidade.titulo"
                   ng-disabled='processo.regularidade'>
                     <option style="display:none" value="">Selecione</option>
@@ -65,7 +65,12 @@
                 </div>
                 <div>
                     <label>Título:</label>
-                    <input ng-model="selectedIrregularidade.titulo"/>
+                    <select class="input_size"
+                      ng-options="item as item.titulo for item in irregularidadesTitulo | orderBy:'titulo' track by item.id"
+                      ng-model="selectedIrregularidade.titulo"
+                      ng-disabled='processo.regularidade'>
+                        <option style="display:none" value="">Selecione</option>
+                    </select>
                 </div>
                 <div>
                     <label>Descrição: </label>

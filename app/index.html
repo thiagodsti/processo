@@ -66,7 +66,7 @@
                                     <div class="input-form">
                                         <label>Fiscal:</label>
                                         <select class="input_size"
-                                          ng-options="item as item.nome for item in fiscais | orderBy:'nome' track by item"
+                                          ng-options="item as item.nome for item in fiscais | orderBy: 'nome' track by item.id"
                                           ng-model="processo.fiscal"
                                           ng-required='true'
                                           ng-disabled="PageMode == 'UPDATE'">
@@ -76,7 +76,7 @@
                                     <div class="input-form">
                                         <label>Tipo Fiscalização:</label>
                                         <select class="input_size"
-                                          ng-options="item as item.label for item in tiposDeFiscalizacao | orderBy:'label' track by item"
+                                          ng-options="item as item.label for item in tiposDeFiscalizacao | orderBy:'label' track by item.id"
                                           ng-model="processo.tipoFiscalizacao"
                                           ng-required='true'
                                           ng-disabled="PageMode == 'UPDATE'">
@@ -86,7 +86,7 @@
                                     <div class="input-form">
                                         <label>Município:</label>
                                         <select class="input_size"
-                                          ng-options="item as item.municipio for item in municipios | orderBy:'municipio' track by item"
+                                          ng-options="item as item.municipio for item in municipios | orderBy:'municipio' track by item.id"
                                           ng-model="processo.municipio"
                                           ng-required='true'
                                           ng-disabled="PageMode == 'UPDATE'">

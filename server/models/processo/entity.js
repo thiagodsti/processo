@@ -9,7 +9,7 @@ var ProcessoSchema   = new Schema({
   regularidade: Boolean,
   motivoRegularidade: String,
   irregularidades: [{
-    titulo: String,
+    titulo: {},
     descricao: String
   }],
   autuado: String,

@@ -19,11 +19,11 @@ angular.module('processo', ['ui.grid', 'ui.grid.selection', 'ui.grid.moveColumns
     };
 });
 function link(scope, element){
-    
+
     scope.handler ={
         unSelectAll:unSelectAll
-    }
-    
+    };
+
     if(!scope.data){
         scope.gridOptions.data = [];
     }else{
@@ -54,7 +54,7 @@ function link(scope, element){
             scope.gridOptions.data = scope.data;
         }
     });
-    
+
    function unSelectAll(){
         scope.gridApi.selection.clearSelectedRows();
     }
