@@ -34,6 +34,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.novoProcesso = function() {
       $scope.init();
+      changePagePositionSelect();
       $scope.processoHandler.unSelectAll();
     };
 
@@ -50,18 +51,28 @@ angular.module("processo").controller("processoController", function($scope, $fi
           processoService.saveProcesso(processo).then(function() {
               $scope.novoProcesso();
               mostrarNotificacao('Processo', 'salvo com sucesso', 'info');
+              changePagePositionSave();
           });
           $scope.processos.push(processo);
         } else if ($scope.PageMode == 'UPDATE') {
           processoService.updateProcesso(processo).then(function() {
               $scope.novoProcesso();
               mostrarNotificacao('Processo', 'editado com sucesso', 'info');
+              changePagePositionSave();
           });
         }
       } else {
         mostrarNotificacao('Formulário Inválido.', 'Há campos inválidos no formulário', 'danger');
       }
     };
+    
+    function changePagePositionSave(){
+        window.scrollTo($('#listaProcessos').position().left, $('#listaProcessos').position().top);
+    }
+    
+    function changePagePositionSelect(){
+        window.scrollTo($('#cadastroProcessos').position().left, $('#cadastroProcessos').position().top);
+    }
 
     $scope.fecharProcesso = function (processo) {
       if(validarFormulario(processo)) {
@@ -69,6 +80,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
         processo.situacao = 'FECHADO';
         processoService.updateProcesso(processo).then(function() {
             $scope.novoProcesso();
+            changePagePositionSave();
         });
       } else {
         mostrarNotificacao('Formulário Inválido.', 'Há campos inválidos no formulário', 'danger');
@@ -157,6 +169,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
         $scope.irregularidades = processo.irregularidades;
         $scope.irregularidade = {};
         $scope.PageMode = 'UPDATE';
+        changePagePositionSelect();
     };
 
     $scope.selectOcorrencia = function(ocorrencia){
