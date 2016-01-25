@@ -16,6 +16,7 @@
         <script src="components/angular-ui-grid/ui-grid.js"></script>
         <script src="js/app.js"></script>
         <script src="js/directives/grid/grid.directive.js"></script>
+        <script src="js/directives/formatDate/formatDate.directive.js"></script>
         <!--<script src="js/directives/serverFile/serverFile.directive.js"></script>-->
         <script src="js/controllers/processoController.js"></script>
         <!--<script src="js/factories/dialog/dialog.factory.js"></script>-->
@@ -36,7 +37,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#panel-lista" ng-click="toggleImg('toggleImgOpenLista', 'toggleImgSrcLista')">
                       Lista de Processos
-                      <img  class="toggle-form" src="{{toggleImgSrcLista}}">
+                      <img  class="toggle-form" ng-src="{{toggleImgSrcLista}}">
                     </div>
                     <div class="collapse" id="panel-lista">
                         <div class="panel-body">
@@ -52,7 +53,7 @@
                 <div class="main_form panel panel-primary">
                     <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#panel-cadastro" ng-click="toggleImg('toggleImgOpenCadastro', 'toggleImgSrcCadastro')" >
                       Cadastro de Processos
-                      <img class="toggle-form" src="{{toggleImgSrcCadastro}}">
+                      <img class="toggle-form" ng-src="{{toggleImgSrcCadastro}}">
                     </div>
                     <div class="collapse in" id="panel-cadastro">
                         <div class="panel-body" >
@@ -108,7 +109,8 @@
                                         <label>Irregularidades:</label>
                                         <div style="display: inline !important;" ng-include="'view/cadastroIrregularidadeModal.html'"></div>
                                         <div class="grid_div">
-                                            <grid grid-options="gridOptionsIrregularidades" data="irregularidades" select-callback="selectIrregularidade"></grid>
+                                            <grid grid-options="gridOptionsIrregularidades" data="irregularidades" select-callback="selectIrregularidade"
+                                              unselect-callback="unselectIrregularidade"></grid>
                                         </div>
                                     </div>
 
@@ -119,11 +121,13 @@
 
                                     <div class="input-form">
                                         <label>Data Visita:</label>
-                                        <input class="formControl input_size" type="date" ng-model="processo.dataVisita" ng-required='true' ng-disabled="PageMode == 'UPDATE'"/>
+                                        <input class="formControl input_size" type="date" ng-model="processo.dataVisita"
+                                          ng-required='true' ng-disabled="PageMode == 'UPDATE'" format-date/>
                                     </div>
                                     <div class="input-form">
                                         <label>Data Criação:</label>
-                                        <input class="formControl input_size" type="date" ng-model="processo.dataCriacao" ng-disabled='true'/>
+                                        <input class="formControl input_size" type="date" ng-model="processo.dataCriacao"
+                                          ng-disabled='true' format-date/>
                                     </div>
 
                                     <div class="input-form">
@@ -135,7 +139,8 @@
                                         <div style="display: inline !important;" ng-include="'view/cadastroOcorrenciaModal.html'"></div>
                                         <!--<button class="btn btn-primary add_acorrencia">Adicionar Ocorrência</button>-->
                                         <div class="grid_div">
-                                            <grid grid-options="gridOptionsOcorrencias" data="ocorrencias" select-callback="selectOcorrencia"></grid>
+                                            <grid grid-options="gridOptionsOcorrencias" data="ocorrencias" select-callback="selectOcorrencia"
+                                              unselect-callback="unselectOcorrencia"></grid>
                                         </div>
                                     </div>
                                 </form>

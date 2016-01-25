@@ -10,18 +10,26 @@ var ProcessoSchema   = new Schema({
   motivoRegularidade: String,
   irregularidades: [{
     titulo: {},
-    descricao: String
+    descricao: String,
+    data: {type: Date, default: Date.now }
   }],
   autuado: String,
   dataVisita: { type: Date, default: Date.now },
   dataCriacao: { type: Date, default: Date.now },
+  dataUltimaAlteracao: { type: Date, default: Date.now },
   situacao: String,
   ocorrencias: [{
-    dataCriacao: { type: Date, default: Date.now },
+    data: { type: Date, default: Date.now },
     titulo: String,
     descricao: String,
     upload: String
   }]
+});
+
+ProcessoSchema.pre('save', function(next) {
+  now = new Date();
+  this.dataUltimaAlteracao = now;
+  next();
 });
 
 module.exports = mongoose.model('Processo', ProcessoSchema);

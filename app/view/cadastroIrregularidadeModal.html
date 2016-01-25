@@ -20,6 +20,11 @@
             </div>
             <div class="modal-body">
               <div>
+                <label>Data:</label>
+                <input class="formControl input_size" type="date" ng-model="irregularidade.data"
+                  ng-disabled="processo.regularidade" format-date/>
+              </div>
+              <div>
                 <label>Titulo:</label>
                 <select class="input_size"
                   ng-options="item as item.titulo for item in irregularidadesTitulo | orderBy:'titulo' track by item.id"
@@ -60,8 +65,9 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <label>Data:</label>
-                    <input ng-model="selectedIrregularidade.data" ng-disabled='true'/>
+                  <label>Data:</label>
+                  <input class="formControl input_size" type="date" ng-model="selectedIrregularidade.data"
+                    ng-disabled="processo.regularidade" format-date/>
                 </div>
                 <div>
                     <label>Título:</label>
