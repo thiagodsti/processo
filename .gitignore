@@ -3,3 +3,4 @@ node_modules/*
 app/components
 app/components/*
 npm-debug.log
+/nbproject/private/

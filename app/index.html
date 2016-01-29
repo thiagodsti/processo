@@ -28,8 +28,10 @@
     </head>
     <body ng-controller="processoController">
         <div>
-            <h1 class="title">Processos</h1>
-            <hr />
+        <div class="header">
+            <img src="icons/header.jpg">
+        </div>
+        <div>
             <div ng-messages="processoForm.$error" style="color:maroon" role="alert">
 
             </div>
@@ -165,6 +167,7 @@
                 </div>
             </div>
         </div>
-        <!--<div ng-include="'view/footer.html'"></div>-->
+        <div ng-include="'view/footer.html'"></div>
+        </div>
     </body>
 </html>
