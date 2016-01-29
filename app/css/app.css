@@ -101,7 +101,7 @@ body{
 .footer{
     width: 100%;
     height: 90px;
-    color: #00666d;
+    color: #057755 ;
     position:fixed;
     bottom:0px;
     left:0px;
@@ -143,7 +143,7 @@ body{
 }
 
 .modal-header{
-    background-color: #00666d !important;
+    background-color: #057755  !important;
     color: white;
 }
 
@@ -185,20 +185,20 @@ input[type="checkbox"]{
 
 .panel-primary > .panel-heading{
     color: #FFF !important;
-    background-color: #00666d !important;
-    border-color: #00666d !important;
+    background-color: #057755  !important;
+    border-color: #057755  !important;
 }
 
 .btn-primary {
     color: #FFF !important;
-    background-color: #00666d !important;
-    border-color: #00666d !important;
+    background-color: #057755  !important;
+    border-color: #057755  !important;
 }
 
 .footer hr{
     width: 100%;
     height: 5px;
-    background-color: #00666d;
+    background-color: #057755 ;
     margin-top: 5px !important;
     margin-bottom: 5px !important;
 }
