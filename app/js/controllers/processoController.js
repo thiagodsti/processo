@@ -177,6 +177,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
     $scope.selectOcorrencia = function(ocorrencia){
         $scope.ocorrencia = angular.copy(ocorrencia);
         $scope.selectedOcorrencia = angular.copy(ocorrencia);
+        $scope.indexOcorrenciaSelecionada = $scope.ocorrencias.indexOf(ocorrencia);
     };
 
     $scope.unselectOcorrencia = function(){
@@ -187,6 +188,7 @@ angular.module("processo").controller("processoController", function($scope, $fi
     $scope.selectIrregularidade = function(irregularidade){
         $scope.irregularidade = angular.copy(irregularidade);
         $scope.selectedIrregularidade = angular.copy(irregularidade);
+        $scope.indexIrregularidadeSelecionada = $scope.irregularidades.indexOf(irregularidade);
     };
 
     $scope.unselectIrregularidade = function(){
@@ -196,34 +198,22 @@ angular.module("processo").controller("processoController", function($scope, $fi
 
     $scope.executeActionOcorrencia = function(selectedOcorrencia){
         if(!$scope.editModeOcorrencia &&  !$scope.deleteModeOcorrencia){
-//            $scope.ocorrencia.data = new Date();
             $scope.ocorrencias.push($scope.ocorrencia);
             $scope.ocorrencia = {};
         }else if($scope.editModeOcorrencia){
-           var indice = findOcorrenciaIndexById($scope.ocorrencia._id);
+          var indice = $scope.indexOcorrenciaSelecionada;
            $scope.ocorrencias[indice] = selectedOcorrencia;
            $scope.ocorrencia = selectedOcorrencia;
-//           $scope.ocorrencia.data = new Date();
         }
     };
-
-    function findOcorrenciaIndexById (id){
-        var ind = 0;
-        angular.forEach($scope.ocorrencias, function(oc){
-            if(oc._id === id){
-                return;
-            }
-            ind++;
-        });
-        return  ind;
-    }
 
     $scope.executeActionIrregularidade = function(selectedIrregularidade){
         if(!$scope.editModeIrregularidade &&  !$scope.deleteModeIrregularidade){
             $scope.irregularidades.push($scope.irregularidade);
             $scope.irregularidade = {};
         }else if($scope.editModeIrregularidade){
-           var indice = $scope.irregularidades.indexOf($scope.irregularidade);
+           var indice = $scope.indexIrregularidadeSelecionada;
+           $scope.irregularidades[indice] = selectedIrregularidade;
            $scope.irregularidade = selectedIrregularidade;
         }
     };
