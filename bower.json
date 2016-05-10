@@ -3,7 +3,7 @@
   "description": "Processos do tico",
   "main": "server.js",
   "authors": [
-    "Thiago Diniz da Silveira <thiago.silveira@supero.com.br>"
+	"thiagods.ti@gmail.com"
   ],
   "license": "MIT",
   "homepage": "https://github.com/thiagodsti/processo",
